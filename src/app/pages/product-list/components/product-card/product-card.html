@@ -1,0 +1,41 @@
+
+  <!-- @for(product of products(); track product.id) {
+    <ul>
+      <li>{{product.title}}</li>
+      <li>{{product.price}}</li>
+      <li>{{product.description}}</li>
+      <li>{{product.category}}</li>
+      <img src="{{product.image}}" alt="{{product.title}}">
+    </ul>
+  } -->
+
+<div class="card">
+
+  <div class="image-container"
+       (mouseenter)="showOverlay = true"
+       (mouseleave)="showOverlay = false">
+
+    <img [src]="product.image" [alt]="product.title" />
+
+    @if (showOverlay) {
+      <div class="overlay">
+        
+      </div>
+    }
+
+  </div>
+
+  <div class="info">
+    <h3>{{ product.title }}</h3>
+
+    <div class="bottom">
+      <span class="price">${{ product.price }}</span>
+
+      <button class="plus"
+              (click)="addToCart()">
+        +
+      </button>
+    </div>
+  </div>
+
+</div>

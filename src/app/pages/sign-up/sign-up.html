@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>Document</title>
+</head>
+<body>
+  <div class="signup-form-container">
+  <div class="card">
+    <h2>Create Account</h2>
+    <p>Join us and get started</p>
+
+    <form [formGroup]="form" class="signup-form" (submit)="onSubmit()">
+
+      <div class="row">
+        <div class="input">
+          <label>First Name</label>
+          <input type="text" formControlName="firstName" placeholder="First name">
+        </div>
+
+        <div class="input">
+          <label>Last Name</label>
+          <input type="text" formControlName="lastName" placeholder="Last name">
+        </div>
+      </div>
+
+      <div class="input">
+        <label>Username</label>
+        <input type="text" formControlName="username" placeholder="Choose a username">
+      </div>
+
+      <div class="input">
+        <label>Email</label>
+        <input type="email" formControlName="email" placeholder="Enter your email">
+      </div>
+
+      <div class="input">
+        <label>Password</label>
+        <input type="password" formControlName="password" placeholder="Create a password">
+      </div>
+
+      <button class="signup-btn" type="submit" [disabled]="form.invalid">
+        Create Account
+      </button>
+
+      <p class="login-text">
+        Already have an account?
+        <a routerLink="/login">Sign in</a>
+      </p>
+
+    </form>
+  </div>
+</div>
+</body>
+</html>
