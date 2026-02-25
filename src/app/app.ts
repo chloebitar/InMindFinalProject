@@ -6,10 +6,12 @@ import { Products } from './products';
 import { inject } from '@angular/core';
 import { IProduct } from './Interfaces/product-interface';
 import { Dashboard } from './pages/dashboard/dashboard';
+import { Header } from './core/Layout/header/header';
+import { Footer } from './core/Layout/footer/footer';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, LoginForm, Dashboard],
+  imports: [RouterOutlet, Header, Footer],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

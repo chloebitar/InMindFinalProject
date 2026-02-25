@@ -5,8 +5,10 @@ import { NotFound } from './pages/not-found/not-found';
 import { LoginForm } from './pages/login-form/login-form';
 import { SignUp } from './pages/sign-up/sign-up';
 import { ProductList } from './pages/product-list/product-list';
+import { Home } from './pages/home/home';
 
 export const routes: Routes = [
+  //{ path: '', component: Home },
   { path: '', component: ProductList },
   { path: 'login', component: LoginForm },
   { path: 'signup', component: SignUp },

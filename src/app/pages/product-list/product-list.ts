@@ -14,12 +14,12 @@ import { ProductCard } from './components/product-card/product-card';
   styleUrl: './product-list.scss',
 })
 export class ProductList {
+  
   productsService = inject(Products);
   products: Signal<IProduct[]> = toSignal(this.productsService.getAllProducts(), {
     initialValue: [],
   });
 }
-
 
 
 

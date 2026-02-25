@@ -19,7 +19,6 @@ export class AuthService {
   ) {
     console.log(this.getToken());
     console.log('Is authenticated:', !!this.getToken());
-
     this.isAuthenticated.set(!!this.getToken());
   }
 
