@@ -5,6 +5,9 @@
   display: flex;
   align-items: center;
   border-bottom: 1px solid #e5e5e5;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .header-container {
@@ -24,10 +27,50 @@
 }
 
 .center {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  flex: 1;
+  display: flex;
+  justify-content: center;
 }
+
+.nav-tabs {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+
+.tab {
+  background: none;
+  border: none;
+  font-size: 16px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  color: #555;
+  position: relative;
+  padding-bottom: 6px;
+  transition: 0.3s ease;
+  font-weight: 1000;
+  font-family: "Cormorant Garamond", serif;
+}
+
+.tab:hover {
+  color: #000;
+}
+
+.tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 1px;
+  background: #000;
+  transition: 0.3s ease;
+}
+
+.tab:hover::after {
+  width: 100%;
+}
+
 
 .logo {
   font-family: 'Cormorant Garamond';
