@@ -1,5 +1,7 @@
+
+
 <div class="products-grid">
-  @for (item of products(); track item.id) {
+  @for (item of filteredProducts(); track item.id)  {
     <app-product-card
       [product]="item">
     </app-product-card>

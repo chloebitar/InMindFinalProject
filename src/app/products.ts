@@ -8,7 +8,22 @@ import { Observable } from 'rxjs';
 })
 export class Products {
   http=inject(HttpClient);
+  private baseUrl = 'https://fakestoreapi.com';
   getAllProducts() : Observable<IProduct[]> {
-    return this.http.get<IProduct[]>('https://fakestoreapi.com/products');
+    return this.http.get<IProduct[]>(`${this.baseUrl}/products`);
   }
+
+  
+
+  getCategories(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.baseUrl}/products/categories`);
+  }
+
+  getByCategory(category: string): Observable<IProduct[]> {
+    return this.http.get<IProduct[]>(
+      `${this.baseUrl}/products/category/${encodeURIComponent(category)}`
+    );
+  }
+
+  
 }

@@ -8,10 +8,10 @@ import { ProductList } from './pages/product-list/product-list';
 import { Home } from './pages/home/home';
 
 export const routes: Routes = [
-  //{ path: '', component: Home },
-  { path: '', component: ProductList },
+  { path: '', component: Home },
   { path: 'login', component: LoginForm },
   { path: 'signup', component: SignUp },
+  { path: 'products', component: ProductList },
   {
     path: 'dashboard',
     component: Dashboard,
