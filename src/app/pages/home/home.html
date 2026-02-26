@@ -1,1 +1,48 @@
-<p>home works!</p>
+<div class="hero">
+  
+    <div class="hero-left">
+      <h1 class="hero-title">
+        Discover products<br />
+        that<br />
+        define your style
+      </h1>
+
+      <button class="hero-btn" (click)="goToProducts()">
+        <span>EXPLORE COLLECTION</span>
+        <span class="arrow">→</span>
+      </button>
+    </div>
+</div>
+
+<section class="category-collage">
+  <div class="collage">
+
+    @for (c of categories; track c.category) {
+      <a class="tile"
+         [routerLink]="['/products']"
+         [queryParams]="{ cat: c.category }">
+
+        <img [src]="c.image" [alt]="c.label" />
+
+        <div class="overlay">
+          <h3>{{ c.label }}</h3>
+          <p>VIEW ALL →</p>
+        </div>
+
+      </a>
+    }
+
+  </div>
+</section>
+
+
+<h1 class="section-title">RECOMMENDED FOR YOU</h1>
+<div class="products-grid">
+  @for (item of products(); track item.id;let i = $index) {
+    @if (i < 4) {
+      <app-product-card
+        [product]="item">
+      </app-product-card>
+    }
+  }
+</div>

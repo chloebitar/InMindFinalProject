@@ -9,9 +9,9 @@
 <div class="center">
   <nav class="nav-tabs">
 
-    <button class="tab">Electronics</button>
-    <button class="tab">Jewelry</button>
-    <button class="tab">Clothing</button>
+    <button class="tab" [routerLink]="['/products']" [queryParams]="{ cat: 'electronics' }">Electronics</button>
+    <button class="tab" [routerLink]="['/products']" [queryParams]="{ cat: 'jewelery' }">Jewelery</button>
+    <button class="tab" [routerLink]="['/products']" [queryParams]="{ cat: 'clothing' }">Clothing</button>
 
   </nav>
 </div>
