@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import {Component, Input,inject } from '@angular/core';
+import { CartService } from '../../../../shared/services/cart-service';
 
 @Component({
   selector: 'app-product-card',
@@ -10,9 +10,10 @@ import { Input } from '@angular/core';
 export class ProductCard {
   @Input() product!: any;
 
+  cart = inject(CartService);
   showOverlay = false;
 
   addToCart() {
-    console.log('Added to cart:', this.product);
+    this.cart.add(this.product);
   }
 }

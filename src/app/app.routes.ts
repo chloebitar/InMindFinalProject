@@ -6,12 +6,14 @@ import { LoginForm } from './pages/login-form/login-form';
 import { SignUp } from './pages/sign-up/sign-up';
 import { ProductList } from './pages/product-list/product-list';
 import { Home } from './pages/home/home';
+import { Cart } from './pages/cart/cart';
 
 export const routes: Routes = [
   { path: '', component: Home },
   { path: 'login', component: LoginForm },
   { path: 'signup', component: SignUp },
   { path: 'products', component: ProductList },
+  { path: 'cart', component: Cart },
   {
     path: 'dashboard',
     component: Dashboard,

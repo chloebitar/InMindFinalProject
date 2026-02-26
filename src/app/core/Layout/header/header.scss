@@ -76,6 +76,7 @@
   font-family: 'Cormorant Garamond';
   font-size: 22px;
   font-weight: 500;
+  cursor: pointer;
   letter-spacing: 2px;
 }
 
@@ -89,4 +90,31 @@
 
 .icon:hover {
   opacity: 0.6;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+
+  background-color: #ef4444; 
+  color: white;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  width: 15px;
+  height: 15px;
+  padding: 1px 1px;
+
+  border-radius: 999px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-wrapper {
+  position: relative;
+  display: inline-block;
 }

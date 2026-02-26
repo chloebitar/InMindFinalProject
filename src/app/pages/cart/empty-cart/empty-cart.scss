@@ -1,0 +1,49 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 70px);
+    text-align: center;
+}
+
+.empty-cart-icon {
+    width: 120px;
+    height: 120px;
+    opacity: 0.5;
+}
+
+h2 {
+    font-size: 40px;
+    line-height: 10%;
+    font-weight: lighter;
+    color: #333;
+    font-family: "Cormorant Garamond", serif;
+}
+
+p {
+    font-size: 16px;
+    color: #666;
+    font-family: "Cormorant Garamond", serif;
+}
+
+
+.explore-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+
+  background: #111;
+  color: #fff;
+  border: none;
+
+  padding: 18px 18px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.explore-btn:hover {
+  background: #222;
+}
