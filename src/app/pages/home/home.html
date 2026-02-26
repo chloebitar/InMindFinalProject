@@ -37,12 +37,11 @@
 
 
 <h1 class="section-title">RECOMMENDED FOR YOU</h1>
+
 <div class="products-grid">
-  @for (item of products(); track item.id;let i = $index) {
-    @if (i < 4) {
-      <app-product-card
-        [product]="item">
-      </app-product-card>
-    }
+  @for (item of recommendedProducts(); track item.id) {
+    <app-product-card
+      [product]="item">
+    </app-product-card>
   }
 </div>

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component,inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { CartService } from '../../../shared/services/cart-service';
 
 @Component({
   selector: 'app-header',
@@ -8,5 +9,5 @@ import { RouterLink } from '@angular/router';
   styleUrl: './header.scss',
 })
 export class Header {
-
+  cart = inject(CartService);
 }
