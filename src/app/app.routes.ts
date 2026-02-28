@@ -1,26 +1,32 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/auth/auth-guards/auth-guard';
-import { Dashboard } from './pages/dashboard/dashboard';
-import { NotFound } from './pages/not-found/not-found';
-import { LoginForm } from './pages/login-form/login-form';
-import { SignUp } from './pages/sign-up/sign-up';
-import { ProductList } from './pages/product-list/product-list';
 import { Home } from './pages/home/home';
-import { Cart } from './pages/cart/cart';
 
 export const routes: Routes = [
   { path: '', component: Home },
-  { path: 'login', component: LoginForm },
-  { path: 'signup', component: SignUp },
-  { path: 'products', component: ProductList },
-  { path: 'cart', component: Cart },
+  {
+    path: 'login',
+    loadComponent: () => import('./pages/login-form/login-form').then((m) => m.LoginForm),
+  },
+  {
+    path: 'signup',
+    loadComponent: () => import('./pages/sign-up/sign-up').then((m) => m.SignUp),
+  },
+  {
+    path: 'products',
+    loadComponent: () => import('./pages/product-list/product-list').then((m) => m.ProductList),
+  },
+  {
+    path: 'cart',
+    loadComponent: () => import('./pages/cart/cart').then((m) => m.Cart),
+  },
   {
     path: 'dashboard',
-    component: Dashboard,
+    loadComponent: () => import('./pages/dashboard/dashboard').then((m) => m.Dashboard),
     canActivate: [authGuard],
   },
   {
     path: '**',
-    component: NotFound,
+    loadComponent: () => import('./pages/not-found/not-found').then((m) => m.NotFound),
   },
 ];
