@@ -2,7 +2,7 @@ import { Component, Signal, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LoginForm } from './pages/login-form/login-form';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Products } from './products';
+import { Products } from './shared/services/products-service';
 import { inject } from '@angular/core';
 import { IProduct } from './Interfaces/product-interface';
 import { Dashboard } from './pages/dashboard/dashboard';

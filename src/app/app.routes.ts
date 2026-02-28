@@ -25,6 +25,11 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/dashboard/dashboard').then((m) => m.Dashboard),
     canActivate: [authGuard],
   },
+
+  {
+    path: 'products/:id',
+    loadComponent: () => import('./pages/single-product/single-product').then((m) => m.SingleProduct),
+  },
   {
     path: '**',
     loadComponent: () => import('./pages/not-found/not-found').then((m) => m.NotFound),

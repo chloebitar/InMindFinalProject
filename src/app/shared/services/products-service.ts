@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { IProduct } from './Interfaces/product-interface';
+import { IProduct } from '../../Interfaces/product-interface';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -7,13 +7,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class Products {
-  http=inject(HttpClient);
+  http = inject(HttpClient);
   private baseUrl = 'https://fakestoreapi.com';
-  getAllProducts() : Observable<IProduct[]> {
+  getAllProducts(): Observable<IProduct[]> {
     return this.http.get<IProduct[]>(`${this.baseUrl}/products`);
   }
-
-  
 
   getCategories(): Observable<string[]> {
     return this.http.get<string[]>(`${this.baseUrl}/products/categories`);
@@ -21,9 +19,11 @@ export class Products {
 
   getByCategory(category: string): Observable<IProduct[]> {
     return this.http.get<IProduct[]>(
-      `${this.baseUrl}/products/category/${encodeURIComponent(category)}`
+      `${this.baseUrl}/products/category/${encodeURIComponent(category)}`,
     );
   }
 
-  
+  getProductById(id: number) {
+    return this.http.get<IProduct>(`https://fakestoreapi.com/products/${id}`);
+  }
 }

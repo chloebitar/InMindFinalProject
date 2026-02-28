@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Signal,inject, computed } from '@angular/core';
-import { Products } from '../../products';
+import { Signal, inject, computed } from '@angular/core';
+import { Products } from '../../shared/services/products-service';
 import { IProduct } from '../../Interfaces/product-interface';
 import { ProductCard } from './components/product-card/product-card';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
-
-
 
 @Component({
   selector: 'app-product-list',
@@ -41,6 +39,3 @@ export class ProductList {
     return all.filter((p) => p.category === category);
   });
 }
-
-
-

@@ -1,0 +1,158 @@
+.single-product {
+  padding: 40px 100px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.product-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 80px;
+}
+
+.image-box {
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.image-box img {
+  max-width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  font-family: inter;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 600;
+  font-family: inter;
+}
+
+.price {
+  font-size: 18px;
+  font-family: inter;
+  font-weight: 500;
+}
+
+.category {
+  font-size: 12px;
+  opacity: 0.6;
+  font-family: inter;
+  text-transform: uppercase;
+}
+
+.description {
+  font-size: 13px;
+  line-height: 1.6;
+  opacity: 0.8;
+  font-family: inter;
+}
+
+
+.actions {
+  display: flex;
+  gap: 14px;
+  margin-top: 20px;
+  align-items: center;
+}
+
+
+.add-btn {
+  height: 42px;
+  padding: 0 20px;
+
+  background: black;
+  color: white;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 1px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  transition: 0.2s ease;
+}
+
+.add-btn img {
+  width: 18px;
+  height: 18px;
+}
+
+.add-btn:hover {
+  background: #222;
+}
+
+
+.share-btn {
+  height: 42px;
+  width: 42px;
+  flex: 0 0 42px;
+
+  border: 1px solid black;
+  background: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.share-btn img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.share-btn:hover {
+  background: black;
+}
+
+.share-btn:hover img {
+  filter: invert(1);
+}
+
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 100px;
+  margin-bottom: 100px;
+}
+
+.section-title{
+    font-family: "inter", sans-serif;
+}
+
+@media (max-width: 1000px) {
+  .product-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .related-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .single-product {
+    padding: 20px;
+  }
+
+  .related-grid {
+    grid-template-columns: 1fr;
+  }
+}
