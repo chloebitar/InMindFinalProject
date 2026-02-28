@@ -1,9 +1,41 @@
+<div class="product-list">
 
+  <div class="top-bar">
+    <h1 class="page-title">
+      {{ (category() || 'Products') | uppercase }}
+    </h1>
 
-<div class="products-grid">
-  @for (item of filteredProducts(); track item.id)  {
-    <app-product-card
-      [product]="item">
-    </app-product-card>
-  }
+    <div class="filters">
+
+      <div class="search">
+        <img src="assets/icons/search.svg" alt="Search icon" class="search-icon" />
+        <input
+          type="text"
+          placeholder="Search"
+          [value]="search()"
+          (input)="setSearch(($any($event.target)).value)"
+        />
+      </div>
+
+      <div class="sort">
+        <span class="sort-label">SORT BY</span>
+        <select
+          [value]="sortBy()"
+          (change)="setSort(($any($event.target)).value)"
+        >
+          <option value="price-asc">Price: Low → High</option>
+          <option value="price-desc">Price: High → Low</option>
+          <option value="title-asc">Name: A → Z</option>
+        </select>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="products-grid">
+    @for (item of filteredProducts(); track item.id) {
+      <app-product-card [product]="item"></app-product-card>
+    }
+  </div>
+
 </div>
