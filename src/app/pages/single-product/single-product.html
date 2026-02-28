@@ -1,0 +1,57 @@
+<section class="single-product">
+
+  @if (!product()) {
+    <p>Loading...</p>
+  } @else {
+
+    <div class="product-layout">
+
+      <div class="image-box">
+        <img [src]="product()!.image" [alt]="product()!.title" />
+      </div>
+
+      <div class="details">
+
+        <h2 class="title">
+          {{ product()!.title }}
+        </h2>
+
+        <div class="price">
+          ${{ product()!.price }}
+        </div>
+
+        <div class="category">
+          {{ product()!.category }}
+        </div>
+
+        <div class="description">
+          {{ product()!.description }}
+        </div>
+
+<div class="actions">
+  <button class="add-btn" (click)="addToCart()">
+    <img src="assets/icons/white_cart.svg" alt="cart icon" />
+    ADD TO CART
+  </button>
+
+  <button class="share-btn" type="button" (click)="shareProduct()">
+    <img src="assets/icons/share.svg" alt="share icon" />
+  </button>
+</div>
+
+      </div>
+
+    </div>
+
+<h1 class="section-title">You might be interested in</h1>
+
+<div class="related-grid">
+  @for (item of recommendedProducts(); track item.id; ) {
+      <app-product-card [product]="item"></app-product-card>
+    
+  }
+</div>
+
+  }
+
+</section>
