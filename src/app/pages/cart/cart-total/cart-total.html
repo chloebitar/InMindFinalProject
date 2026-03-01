@@ -28,7 +28,7 @@
                 
 
               <p class="category">{{ item.category }}</p>
-              <p class="price">{{ item.price | number }} $</p>
+              <p class="price">{{ currency.format(item.price) }}</p>
 
                 <div class="flex-row">
                  <div class="qty">
@@ -59,17 +59,17 @@
 
       <div class="row">
         <span>Subtotal</span>
-        <span>{{ subtotal() | number }} $</span>
+        <span>{{ subtotalText() }}</span>
       </div>
 
       <div class="row">
         <span>Delivery</span>
-        <span>{{ deliveryFee | number }} $</span>
+        <span>{{ deliveryText() }}</span>
       </div>
 
       <div class="row total">
         <span>Total</span>
-        <span>{{ total() | number }} $</span>
+        <span>{{ totalText() }}</span>
       </div>
 
       <button class="checkout-btn" [disabled]="cart.items().length === 0">

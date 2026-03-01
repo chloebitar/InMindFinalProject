@@ -17,7 +17,7 @@
     <h3>{{ product.title }}</h3>
 
     <div class="bottom">
-      <span class="price">${{ product.price }}</span>
+      <span class="price">{{ currencyService.format(product.price) }}</span>
 
       <button class="plus"
               (click)="addToCart(); $event.stopPropagation()">
