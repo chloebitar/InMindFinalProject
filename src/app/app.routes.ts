@@ -9,6 +9,11 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/login-form/login-form').then((m) => m.LoginForm),
   },
   {
+    path: 'profile',
+    loadComponent: () => import('./pages/profile/profile').then((m) => m.Profile),
+    //canActivate: [authGuard],
+  },
+  {
     path: 'signup',
     loadComponent: () => import('./pages/sign-up/sign-up').then((m) => m.SignUp),
   },
