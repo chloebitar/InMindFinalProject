@@ -1,5 +1,4 @@
-// dashboard.ts
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal,Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AgGridAngular } from 'ag-grid-angular';
@@ -13,7 +12,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
 
 import { Products } from '../../shared/services/products-service';
 import { IProduct } from '../../Interfaces/product-interface';
-import { DashboardDataService, DashboardJson } from '../../shared/services/dashboard-data-service';
+import { DashboardDataService } from '../../shared/services/dashboard-data-service';
+import { IDashboardJson } from '../../Interfaces/dashboard-json';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -28,27 +28,22 @@ export class Dashboard {
   private productsService = inject(Products);
   private dashboardService = inject(DashboardDataService);
 
-  // ✅ keep GridApi
   private gridApi?: GridApi<IProduct>;
 
-  // ✅ load products (API) as signal
-  private productsSig = toSignal(this.productsService.getAllProducts(), {
-    initialValue: [] as IProduct[],
+  productsSig: Signal<IProduct[]> = toSignal(this.productsService.getAllProducts(), {
+    initialValue: [],
   });
 
-  // ✅ load dashboard.json as signal
-  private dashSig = toSignal(this.dashboardService.getDashboard(), {
+
+   dashSig: Signal<IDashboardJson> = toSignal(this.dashboardService.getDashboard(), {
     initialValue: {
       kpis: { totalRevenue: 0, totalOrders: 0, avgOrderValue: 0, totalValue: 0 },
       monthlyRevenue: [],
       orders: [],
       recentActivity: [],
-    } as DashboardJson,
+    } 
   });
 
-  // ------------------------
-  // GRID DATA
-  // ------------------------
   rowData = signal<IProduct[]>([]);
 
   colDefs: ColDef<IProduct>[] = [
@@ -92,21 +87,14 @@ export class Dashboard {
     rowHeight: 56,
   };
 
-  // ------------------------
-  // KPI SIGNALS (from JSON)
-  // ------------------------
   kpis = computed(() => this.dashSig().kpis);
   totalRevenue = computed(() => this.kpis().totalRevenue);
   totalOrders = computed(() => this.kpis().totalOrders);
   avgOrderValue = computed(() => this.kpis().avgOrderValue);
   totalValue = computed(() => this.kpis().totalValue);
 
-  // Recent activity (from JSON)
   recentActivity = computed(() => this.dashSig().recentActivity);
 
-  // ------------------------
-  // CHARTS (fixed typing ✅)
-  // ------------------------
   revenueLineType = 'line' as const;
   revenueLineData: ChartConfiguration['data'] = { labels: [], datasets: [] };
   revenueLineOptions: ChartConfiguration['options'] = { responsive: true };
@@ -120,17 +108,10 @@ export class Dashboard {
   aovLineOptions: ChartConfiguration['options'] = { responsive: true };
 
   constructor() {
-    // ✅ products -> grid
     effect(() => {
       this.rowData.set(this.productsSig());
     });
 
-    effect(() => {
-      console.log('DASH JSON:', this.dashSig());
-      console.log('MONTHLY:', this.dashSig().monthlyRevenue);
-    });
-
-    // ✅ json -> charts
     effect(() => {
       const m = this.dashSig().monthlyRevenue;
       const labels = m.map((x) => x.month);
