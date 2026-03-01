@@ -1,0 +1,83 @@
+{
+  "kpis": {
+    "totalRevenue": 42567,
+    "totalOrders": 367,
+    "avgOrderValue": 116,
+    "totalValue": 81234
+  },
+
+  "monthlyRevenue": [
+    { "month": "Jan", "revenue": 3200, "orders": 42, "avgOrderValue": 76 },
+    { "month": "Feb", "revenue": 4100, "orders": 55, "avgOrderValue": 75 },
+    { "month": "Mar", "revenue": 5200, "orders": 68, "avgOrderValue": 76 },
+    { "month": "Apr", "revenue": 4800, "orders": 61, "avgOrderValue": 79 },
+    { "month": "May", "revenue": 6100, "orders": 74, "avgOrderValue": 82 },
+    { "month": "Jun", "revenue": 6800, "orders": 67, "avgOrderValue": 101 }
+  ],
+
+  "orders": [
+    {
+      "id": "ORD-1001",
+      "date": "2026-02-26T10:22:00.000Z",
+      "customer": "Chloe",
+      "total": 245,
+      "status": "Paid",
+      "items": [
+        { "productId": 2, "title": "Silver Ring", "qty": 1, "unitPrice": 45 },
+        { "productId": 7, "title": "Wireless Headphones", "qty": 2, "unitPrice": 100 }
+      ]
+    },
+    {
+      "id": "ORD-1002",
+      "date": "2026-02-27T14:08:00.000Z",
+      "customer": "Maya",
+      "total": 120,
+      "status": "Pending",
+      "items": [
+        { "productId": 5, "title": "Leather Bag", "qty": 1, "unitPrice": 120 }
+      ]
+    },
+    {
+      "id": "ORD-1003",
+      "date": "2026-02-28T18:40:00.000Z",
+      "customer": "Ali",
+      "total": 89,
+      "status": "Delivered",
+      "items": [
+        { "productId": 9, "title": "T-Shirt", "qty": 2, "unitPrice": 22.5 },
+        { "productId": 11, "title": "Necklace", "qty": 1, "unitPrice": 44 }
+      ]
+    }
+  ],
+
+  "recentActivity": [
+    {
+      "id": "ACT-01",
+      "time": "2026-02-28T19:10:00.000Z",
+      "type": "order",
+      "title": "New order placed",
+      "details": "Order ORD-1003 was placed by Ali."
+    },
+    {
+      "id": "ACT-02",
+      "time": "2026-02-28T19:30:00.000Z",
+      "type": "product",
+      "title": "Product updated",
+      "details": "Wireless Headphones price updated."
+    },
+    {
+      "id": "ACT-03",
+      "time": "2026-02-28T20:05:00.000Z",
+      "type": "delivery",
+      "title": "Order delivered",
+      "details": "Order ORD-1001 has been delivered."
+    },
+    {
+      "id": "ACT-04",
+      "time": "2026-02-29T09:00:00.000Z",
+      "type": "user",
+      "title": "New user registered",
+      "details": "Maya created a new account."
+    }
+  ]
+}

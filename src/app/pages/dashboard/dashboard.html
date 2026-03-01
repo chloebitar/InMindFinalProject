@@ -1,1 +1,95 @@
-<p>dashboard works!</p>
+<!-- dashboard.html -->
+<div class="dash">
+  <div class="dash-top">
+    <h2 class="title">Dashboard</h2>
+    <p class="subtitle">KPIs + charts from JSON • Products table from API</p>
+  </div>
+
+  <!-- KPI CARDS -->
+  <div class="kpis">
+    <div class="kpi">
+      <p class="kpi-label">Total Revenue</p>
+      <h3 class="kpi-value">${{ totalRevenue().toLocaleString() }}</h3>
+      <span class="kpi-chip up">From JSON</span>
+    </div>
+
+    <div class="kpi">
+      <p class="kpi-label">Total Orders</p>
+      <h3 class="kpi-value">{{ totalOrders() }}</h3>
+      <span class="kpi-chip up">From JSON</span>
+    </div>
+
+    <div class="kpi">
+      <p class="kpi-label">Total Value</p>
+      <h3 class="kpi-value">${{ totalValue().toLocaleString() }}</h3>
+      <span class="kpi-chip up">From JSON</span>
+    </div>
+
+    <div class="kpi">
+      <p class="kpi-label">Avg. Order Value</p>
+      <h3 class="kpi-value">${{ avgOrderValue() }}</h3>
+      <span class="kpi-chip down">From JSON</span>
+    </div>
+  </div>
+
+  <!-- CHARTS -->
+  <div class="charts">
+    <div class="panel">
+      <div class="panel-head">
+        <h3>Monthly Revenue</h3>
+        <p>Line chart</p>
+      </div>
+      <div class="chart-wrap">
+        <canvas baseChart [type]="revenueLineType" [data]="revenueLineData" [options]="revenueLineOptions"></canvas>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <h3>Monthly Orders</h3>
+        <p>Bar chart</p>
+      </div>
+      <div class="chart-wrap">
+        <canvas baseChart [type]="ordersBarType" [data]="ordersBarData" [options]="ordersBarOptions"></canvas>
+      </div>
+    </div>
+<div class="panel side">
+      <div class="panel-head">
+        <h3>Recent Activity</h3>
+        <p>From JSON</p>
+      </div>
+
+      <ul class="activity">
+        <li *ngFor="let a of recentActivity()">
+          <span class="dot"></span>
+          <div class="act-text">
+            <div class="act-title">{{ a.title }}</div>
+            <div class="act-details">{{ a.details }}</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- GRID + RECENT ACTIVITY -->
+  <div class="grid-row">
+    <div class="panel">
+      <div class="panel-head">
+        <h3>Top Products</h3>
+        <p>AG Grid</p>
+      </div>
+
+      <ag-grid-angular
+        class="ag-theme-quartz table"
+        [rowData]="rowData()"
+        [columnDefs]="colDefs"
+        [defaultColDef]="defaultColDef"
+        [gridOptions]="gridOptions"
+        (gridReady)="onGridReady($event)">
+      </ag-grid-angular>
+    </div>
+
+    
+  </div>
+</div>
