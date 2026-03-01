@@ -1,7 +1,8 @@
 import {Component, Input,inject } from '@angular/core';
 import { CartService } from '../../../../shared/services/cart-service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CurrencyService } from '../../../../shared/services/currency-service';
+import { AuthService } from '../../../../core/auth/auth-services/auth-service';
 
 @Component({
   selector: 'app-product-card',
@@ -11,13 +12,18 @@ import { CurrencyService } from '../../../../shared/services/currency-service';
 })
 export class ProductCard {
   @Input() product!: any;
-
+  authService = inject(AuthService);
   
   cart = inject(CartService);
+  router = inject(Router);
   showOverlay = false;
   currencyService = inject(CurrencyService);
 
   addToCart() {
-    this.cart.add(this.product);
+    if (this.authService.isAuthenticated()) {
+      this.cart.add(this.product);
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
 }
