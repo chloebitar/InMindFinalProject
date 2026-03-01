@@ -32,39 +32,39 @@ export class AuthService {
     this.cookieService.set(this.tokenkey, token, { expires: 2, sameSite: 'Strict' });
   }
 
-  authentication(email: string, password: string): Observable<string> {
-    return this.http
-      .post<ILoginToken>('https://melaine-palaeobiologic-savourily.ngrok-free.dev/api/auth/login', {
-        email,
-        password,
-      })
-      .pipe(
-        tap((res) => {
-          if (!res.token) return;
-          this.setToken(res.token);
-          this.isAuthenticated.set(true);
-          this.router.navigate(['/']);
-        }),
-        map((res) => res.token),
-      );
-  }
-
   // authentication(email: string, password: string): Observable<string> {
-  //   console.log('Mock login called', email, password);
-
-  //   return of({
-  //     Login: {
-  //       AccessToken: 'fake-jwt-token',
-  //     },
-  //   }).pipe(
-  //     tap((res) => {
-  //       this.setToken(res.Login.AccessToken);
-  //       this.isAuthenticated.set(true);
-  //       this.router.navigate(['/dashboard']);
-  //     }),
-  //     map((res) => res.Login.AccessToken),
-  //   );
+  //   return this.http
+  //     .post<ILoginToken>('https://melaine-palaeobiologic-savourily.ngrok-free.dev/api/auth/login', {
+  //       email,
+  //       password,
+  //     })
+  //     .pipe(
+  //       tap((res) => {
+  //         if (!res.token) return;
+  //         this.setToken(res.token);
+  //         this.isAuthenticated.set(true);
+  //         this.router.navigate(['/']);
+  //       }),
+  //       map((res) => res.token),
+  //     );
   // }
+
+  authentication(email: string, password: string): Observable<string> {
+    console.log('Mock login called', email, password);
+
+    return of({
+      Login: {
+        AccessToken: 'fake-jwt-token',
+      },
+    }).pipe(
+      tap((res) => {
+        this.setToken(res.Login.AccessToken);
+        this.isAuthenticated.set(true);
+        this.router.navigate(['/dashboard']);
+      }),
+      map((res) => res.Login.AccessToken),
+    );
+  }
 
   logout() {
     this.cookieService.delete(this.tokenkey);
