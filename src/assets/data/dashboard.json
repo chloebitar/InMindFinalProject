@@ -30,7 +30,7 @@
     {
       "id": "ORD-1002",
       "date": "2026-02-27T14:08:00.000Z",
-      "customer": "Maya",
+      "customer": "Chloe",
       "total": 120,
       "status": "Pending",
       "items": [
@@ -40,7 +40,7 @@
     {
       "id": "ORD-1003",
       "date": "2026-02-28T18:40:00.000Z",
-      "customer": "Ali",
+      "customer": "Chloe",
       "total": 89,
       "status": "Delivered",
       "items": [
@@ -77,7 +77,7 @@
       "time": "2026-02-29T09:00:00.000Z",
       "type": "user",
       "title": "New user registered",
-      "details": "Maya created a new account."
+      "details": "Chloe created a new account."
     }
   ]
 }
