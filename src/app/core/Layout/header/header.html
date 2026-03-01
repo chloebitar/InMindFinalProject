@@ -20,7 +20,31 @@
 
 
       <img src="assets/icons/search.svg" alt="search" class="icon" />
-      <img src="assets/icons/profile.svg" alt="profile" class="icon" />
+      <div class="profile-wrap" (click)="$event.stopPropagation()">
+  <button class="icon-btn" type="button" (click)="onProfileClick()">
+    <img src="assets/icons/profile.svg" alt="profile" class="icon" />
+  </button>
+
+  @if (authService.isAuthenticated() && menuOpen()) {
+    <div class="menu">
+      <button class="menu-item" [routerLink]="['/profile']" (click)="closeMenu()">
+        Profile
+      </button>
+
+      <button class="menu-item" [routerLink]="['/profile']" [queryParams]="{ tab: 'orders' }" (click)="closeMenu()">
+        My Orders
+      </button>
+
+      <button class="menu-item" [routerLink]="['/profile']" [queryParams]="{ tab: 'payments' }" (click)="closeMenu()">
+        Payments
+      </button>
+
+      <button class="menu-item danger" (click)="logout()">
+        Logout
+      </button>
+    </div>
+  }
+</div>
       <div class="cart-wrapper">
   <img src="assets/icons/cart.svg" class="icon" [routerLink]="['/cart']" />
   @if (cart.totalItems() > 0) {

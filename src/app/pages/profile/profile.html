@@ -1,1 +1,139 @@
-<p>profile works!</p>
+<div class="profile-page">
+  <div class="header">
+    <div class="title-wrap">
+      <h1>My Account</h1>
+      <p class="sub">Manage your orders, personal details, and payment methods.</p>
+    </div>
+
+    <div class="user-chip">
+      <div class="avatar">{{ fullName().slice(0, 1) }}</div>
+      <div class="chip-text">
+        <div class="name">{{ fullName() }}</div>
+        <div class="id">{{ user().id }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="tabs">
+      @for (t of tabs; track t.key) {
+        <button
+          type="button"
+          class="tab"
+          [class.active]="activeTab() === t.key"
+          (click)="setTab(t.key)">
+          {{ t.label }}
+        </button>
+      }
+      <span class="tabs-underline" [attr.data-tab]="activeTab()"></span>
+    </div>
+
+    <div class="content">
+      @if (activeTab() === 'orders') {
+        <section class="section">
+          <div class="section-head">
+            <h2>Orders</h2>
+            <p>Your recent purchases</p>
+          </div>
+
+          <div class="table">
+            <div class="row head">
+              <div>Order</div>
+              <div>Date</div>
+              <div>Status</div>
+              <div class="right">Total</div>
+            </div>
+
+            @for (o of orders(); track o.id) {
+              <div class="row">
+                <div class="mono">{{ o.id }}</div>
+                <div>{{ o.date }}</div>
+                <div>
+                  <span class="pill"
+                        [class.ok]="o.status === 'Delivered'"
+                        [class.warn]="o.status === 'Processing'"
+                        [class.bad]="o.status === 'Cancelled'">
+                    {{ o.status }}
+                  </span>
+                </div>
+                <div class="right">${{ o.total }}</div>
+              </div>
+            }
+          </div>
+        </section>
+      } @else if (activeTab() === 'details') {
+        <section class="section">
+          <div class="section-head">
+            <h2>Details</h2>
+            <p>Update your personal information</p>
+          </div>
+
+          <div class="form-grid">
+            <label class="field">
+              <span>First name</span>
+              <input
+                [value]="user().firstName"
+                (input)="user.set({ ...user(), firstName: ($any($event.target).value) })"
+                type="text" />
+            </label>
+
+            <label class="field">
+              <span>Last name</span>
+              <input
+                [value]="user().lastName"
+                (input)="user.set({ ...user(), lastName: ($any($event.target).value) })"
+                type="text" />
+            </label>
+
+            <label class="field">
+              <span>Email</span>
+              <input
+                [value]="user().email"
+                (input)="user.set({ ...user(), email: ($any($event.target).value) })"
+                type="email" />
+            </label>
+
+            <label class="field">
+              <span>Phone</span>
+              <input
+                [value]="user().phone"
+                (input)="user.set({ ...user(), phone: ($any($event.target).value) })"
+                type="tel" />
+            </label>
+          </div>
+
+          <div class="actions">
+            <button type="button" class="btn primary" (click)="saveDetails()">Save changes</button>
+            <button type="button" class="btn ghost">Cancel</button>
+          </div>
+        </section>
+      } @else {
+        <section class="section">
+          <div class="section-head">
+            <h2>Payments</h2>
+            <p>Manage saved payment methods</p>
+          </div>
+
+          <div class="payment-list">
+            @for (pm of paymentMethods(); track pm.id) {
+              <div class="pm-card">
+                <div class="pm-left">
+                  <div class="pm-brand">{{ pm.brand }}</div>
+                  <div class="pm-meta">•••• {{ pm.last4 }} · exp {{ pm.exp }}</div>
+                </div>
+
+                <button class="btn small danger" type="button" (click)="removePayment(pm.id)">
+                  Remove
+                </button>
+              </div>
+            }
+
+            <button class="btn ghost full" type="button">
+              + Add payment method
+            </button>
+          </div>
+        </section>
+      }
+    </div>
+  </div>
+</div>
