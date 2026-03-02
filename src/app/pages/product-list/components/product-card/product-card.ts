@@ -19,11 +19,15 @@ export class ProductCard {
   showOverlay = false;
   currencyService = inject(CurrencyService);
 
+  // addToCart() {
+  //   if (this.authService.isAuthenticated()) {
+  //     this.cart.add(this.product);
+  //   } else {
+  //     this.router.navigate(['/login']);
+  //   }
+  // }
   addToCart() {
-    if (this.authService.isAuthenticated()) {
       this.cart.add(this.product);
-    } else {
-      this.router.navigate(['/login']);
     }
-  }
+   
 }

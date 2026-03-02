@@ -6,12 +6,14 @@ import { map, Observable, tap } from 'rxjs';
 import { ILoginToken } from '../auth-interfaces/login-token';
 import { of } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { IUser } from '../auth-interfaces/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   public readonly isAuthenticated = signal(false);
+  public readonly user = signal<IUser | null>(null);
   constructor(
     private cookieService: CookieService,
     private router: Router,
@@ -42,7 +44,9 @@ export class AuthService {
   //       tap((res) => {
   //         if (!res.token) return;
   //         this.setToken(res.token);
+  //         this.setUserCookie({ id: res.user.id, username: res.user.username });
   //         this.isAuthenticated.set(true);
+  //         this.user.set(res.user);
   //         this.router.navigate(['/']);
   //       }),
   //       map((res) => res.token),
@@ -60,19 +64,32 @@ export class AuthService {
       tap((res) => {
         this.setToken(res.Login.AccessToken);
         this.isAuthenticated.set(true);
-        this.router.navigate(['/dashboard']);
       }),
       map((res) => res.Login.AccessToken),
     );
   }
 
   logout() {
+    // const userId = this.user()?.id;
+
+    // if (userId) {
+    //   localStorage.removeItem(`cart_items_${userId}`);
+    // }
     this.cookieService.delete(this.tokenkey);
+    this.cookieService.delete('userId');
+    this.cookieService.delete('username');
     this.isAuthenticated.set(false);
+    this.user.set(null);
     this.router.navigate(['/login']);
   }
 
-  signup(email:string, firstName: string, lastName: string, password: string, username: string): Observable<string> {
+  signup(
+    email: string,
+    firstName: string,
+    lastName: string,
+    password: string,
+    username: string,
+  ): Observable<string> {
     return this.http
       .post<ILoginToken>(
         'https://melaine-palaeobiologic-savourily.ngrok-free.dev/api/auth/register',
@@ -89,10 +106,20 @@ export class AuthService {
           if (!res.token) return;
           this.setToken(res.token);
           this.isAuthenticated.set(true);
+          this.setUserCookie({ id: res.user.id, username: res.user.username });
           this.router.navigate(['/']);
         }),
         map((res) => res.token),
-      );;
-  
- }
+      );
+  }
+
+  private setUserCookie(user: { id: number; username: string }) {
+    this.cookieService.set('userId', String(user.id), { expires: 2, sameSite: 'Strict' });
+    this.cookieService.set('username', user.username, { expires: 2, sameSite: 'Strict' });
+  }
+
+  getUserId(): number | null {
+    const raw = this.cookieService.get('userId');
+    return raw ? Number(raw) : null;
+  }
 }

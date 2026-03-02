@@ -36,4 +36,6 @@ export class CartTotal {
   clear() {
     this.cart.clear();
   }
+
+  
 }
