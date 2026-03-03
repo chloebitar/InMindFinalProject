@@ -1,24 +1,28 @@
-export interface ILoginToken {
+import { IUser } from "./user";
 
-    // Login:{AccessToken: string ;
-    // ExpiresIn: number ;
-    // RefreshExpiresIn: number;
-    // RefreshToken: string
-    // TokenType: string
-    // NotBeforePolicy: string;
-    // SessionState: string;
-    // Scope: string;}
-   
-    token: string;
-    user:{
-        id: number;
-        email: string;
-        firstName: string;
-        lastName: string;
-        username: string;
-        dateOfBirth: Date;
-        imageUrl: string;
-        createdAt: Date;
-        updatedAt: Date;
-    }
+export interface ILoginToken {
+  // Login:{AccessToken: string ;
+  // ExpiresIn: number ;
+  // RefreshExpiresIn: number;
+  // RefreshToken: string
+  // TokenType: string
+  // NotBeforePolicy: string;
+  // SessionState: string;
+  // Scope: string;}
+
+  // token: string;
+  // user:{
+  //     id: number;
+  //     email: string;
+  //     firstName: string;
+  //     lastName: string;
+  //     username: string;
+  //     dateOfBirth: Date;
+  //     imageUrl: string;
+  //     createdAt: Date;
+  //     updatedAt: Date;
+  // }
+
+  token: string;
+  user: IUser;
 }

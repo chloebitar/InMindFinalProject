@@ -1,12 +1,21 @@
-import { Injectable, signal, computed, effect } from '@angular/core';
+import { Injectable, signal, computed, effect,inject } from '@angular/core';
 import { CartItem } from '../../Interfaces/cart-items';
+import { AuthService } from '../../core/auth/auth-services/auth-service';
 
 
-const STORAGE_KEY = 'cart_items';
+
+const storage_pref = 'cart_items';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
-  private _items = signal<CartItem[]>(this.loadFromStorage());
+  auth = inject(AuthService);
+
+  private storageKey = computed(() => {
+    const uid = this.auth.user()?.id;
+    return uid ? `${storage_pref}_${uid}` : `${storage_pref}_guest`;
+  });
+
+  private _items = signal<CartItem[]>(this.loadFromStorage(this.storageKey()));
 
   items = this._items.asReadonly();
 
@@ -14,11 +23,44 @@ export class CartService {
 
   totalPrice = computed(() => this._items().reduce((sum, item) => sum + item.price * item.qty, 0));
 
+  private migrateGuestToUser(userId: number) {
+    const guestKey = 'cart_items_guest';
+    const userKey = `cart_items_${userId}`;
+
+    const guestRaw = localStorage.getItem(guestKey);
+    if (!guestRaw) return;
+
+    const guest: CartItem[] = JSON.parse(guestRaw);
+
+    const user: CartItem[] = JSON.parse(localStorage.getItem(userKey) || '[]');
+
+    for (const g of guest) {
+      const existing = user.find((u) => u.id === g.id);
+      if (existing) existing.qty += g.qty;
+      else user.push(g);
+    }
+
+    localStorage.setItem(userKey, JSON.stringify(user));
+    localStorage.removeItem(guestKey);
+
+    this._items.set(user);
+  }
+
   constructor() {
+    effect(() => {
+      const uid = this.auth.user()?.id;
+
+      if (uid) {
+        this.migrateGuestToUser(uid);
+      }
+
+      const key = this.storageKey();
+      this._items.set(this.loadFromStorage(key));
+    });
 
     effect(() => {
-      const value = this._items();
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(value));
+      const key = this.storageKey();
+      localStorage.setItem(key, JSON.stringify(this._items()));
     });
   }
 
@@ -63,9 +105,9 @@ export class CartService {
     this._items.set([]);
   }
 
-  private loadFromStorage(): CartItem[] {
+  private loadFromStorage(key: string): CartItem[] {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
+      const raw = localStorage.getItem(key);
       return raw ? (JSON.parse(raw) as CartItem[]) : [];
     } catch {
       return [];

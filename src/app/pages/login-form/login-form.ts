@@ -4,7 +4,7 @@ import { email } from '@angular/forms/signals';
 import { Validators } from '@angular/forms';
 import { last } from 'rxjs';
 import { AuthService } from '../../core/auth/auth-services/auth-service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
@@ -16,6 +16,7 @@ export class LoginForm {
   authService = inject(AuthService);
   fb = inject(FormBuilder);
   router = inject(Router);
+  route = inject(ActivatedRoute);
   fbGroup = this.fb.group({
     // firstname: ['',Validators.required],
     // lastname: [''],
@@ -31,10 +32,11 @@ export class LoginForm {
     this.authService.authentication(email!, password!).subscribe({
       next: () => {
         console.log('Login success');
-        this.router.navigate(['/dashboard']);
+       const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+       this.router.navigateByUrl(returnUrl);
       },
       error: (err: any) => {
-        console.error('Signup failed', err);
+        console.error('login failed', err);
         console.log(email, password);
       },
     });
