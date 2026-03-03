@@ -23,14 +23,14 @@ export class AuthService {
     console.log('Is authenticated:', !!this.getToken());
     this.isAuthenticated.set(!!this.getToken());
 
-     const rawUser = localStorage.getItem('user');
-     if (rawUser) {
-       try {
-         this.user.set(JSON.parse(rawUser) as IUser);
-       } catch {
-         localStorage.removeItem('user');
-       }
-     }
+    const rawUser = localStorage.getItem('user');
+    if (rawUser) {
+      try {
+        this.user.set(JSON.parse(rawUser) as IUser);
+      } catch {
+        localStorage.removeItem('user');
+      }
+    }
   }
 
   tokenkey = 'Authenticationtoken';
@@ -54,7 +54,7 @@ export class AuthService {
           if (!res.token) return;
           this.setToken(res.token);
           this.setUserCookie({ id: res.user.id, username: res.user.username });
-          localStorage.setItem("user", JSON.stringify(res.user))
+          localStorage.setItem('user', JSON.stringify(res.user));
           this.isAuthenticated.set(true);
           this.user.set(res.user);
           this.router.navigate(['/']);
@@ -131,8 +131,9 @@ export class AuthService {
     this.cookieService.set('username', user.username, { expires: 2, sameSite: 'Strict' });
   }
 
-  getUserId(): number | null {
-    const raw = this.cookieService.get('userId');
-    return raw ? Number(raw) : null;
+
+  setUser(u: IUser) {
+    this.user.set(u);
+    localStorage.setItem('user', JSON.stringify(u));
   }
 }

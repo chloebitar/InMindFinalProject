@@ -125,6 +125,27 @@ color: #ffffff;
   }
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+.save-btn{
+  gap: 12px;
+  width: fit-content;
+  background: #111;
+  color: #fff;
+  border: none;
+  align-self: flex-end;
+  padding: 18px 18px;
+  font-size: 10px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
 .full {
   grid-column: span 2;
 }
