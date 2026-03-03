@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/auth/auth-guards/auth-guard';
+import { adminGuard } from './shared/guards/admin-guard';
 import { Home } from './pages/home/home';
 
 export const routes: Routes = [
@@ -28,12 +29,13 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     loadComponent: () => import('./pages/dashboard/dashboard').then((m) => m.Dashboard),
-    //canActivate: [authGuard],
+    canActivate: [adminGuard],
   },
 
   {
     path: 'products/:id',
-    loadComponent: () => import('./pages/single-product/single-product').then((m) => m.SingleProduct),
+    loadComponent: () =>
+      import('./pages/single-product/single-product').then((m) => m.SingleProduct),
   },
   {
     path: '**',

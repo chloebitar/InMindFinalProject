@@ -6,6 +6,7 @@ export interface IUser {
   username: string;
   dateOfBirth: string; 
   imageUrl: string;
+  role:string;
   createdAt: string;
   updatedAt: string;
 }
