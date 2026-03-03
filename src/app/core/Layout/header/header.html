@@ -18,8 +18,16 @@
 
     <div class="right">
 
+<div class="currency-toggle">
 
-      <img src="assets/icons/search.svg" alt="search" class="icon" />
+  <label class="switch">
+    <input type="checkbox" (change)="toggleCurrency()" />
+    <span class="slider"></span>
+  </label>
+
+  <span>LBP</span>
+</div>
+      <!-- <img src="assets/icons/search.svg" alt="search" class="icon" /> -->
       <div class="profile-wrap" (click)="$event.stopPropagation()">
   <button class="icon-btn" type="button" (click)="onProfileClick()">
     <img src="assets/icons/profile.svg" alt="profile" class="icon" />
@@ -31,13 +39,9 @@
         Profile
       </button>
 
-      <button class="menu-item" [routerLink]="['/profile']" [queryParams]="{ tab: 'orders' }" (click)="closeMenu()">
-        My Orders
-      </button>
-
-      <button class="menu-item" [routerLink]="['/profile']" [queryParams]="{ tab: 'payments' }" (click)="closeMenu()">
+      <!-- <button class="menu-item" [routerLink]="['/profile']" [queryParams]="{ tab: 'payments' }" (click)="closeMenu()">
         Payments
-      </button>
+      </button> -->
 
       <button class="menu-item danger" (click)="logout()">
         Logout
@@ -51,15 +55,7 @@
   <span class="cart-badge">{{ cart.totalItems() }}</span>}
 
 </div>
-<div class="currency-toggle">
 
-  <label class="switch">
-    <input type="checkbox" (change)="toggleCurrency()" />
-    <span class="slider"></span>
-  </label>
-
-  <span>LBP</span>
-</div>
     </div>
 
   </div>
