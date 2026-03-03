@@ -34,34 +34,42 @@
         <h2>Personal Information</h2>
         <p class="sub">Your account details</p>
 
-        <div class="form-grid">
+        <form [formGroup]="form" (ngSubmit)="save()">
 
-          <div class="form-group">
-            <label>First Name</label>
-            <input type="text" [value]="u.firstName" >
+          <div class="form-grid">
+
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" formControlName="firstName">
+            </div>
+
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" formControlName="lastName">
+            </div>
+
+            <div class="form-group full">
+              <label>Email</label>
+              <input type="email" formControlName="email">
+            </div>
+
+            <div class="form-group full">
+              <label>Username</label>
+              <input type="text" formControlName="username">
+            </div>
+
+              
+
           </div>
-
-          <div class="form-group">
-            <label>Last Name</label>
-            <input type="text" [value]="u.lastName" >
-          </div>
-
-          <div class="form-group full">
-            <label>Email</label>
-            <input type="email" [value]="u.email" >
-          </div>
-
-          <div class="form-group full">
-            <label>Username</label>
-            <input type="text" [value]="u.username" >
-          </div>
-
-        </div>
+<button type="submit" class="save-btn">
+                Save Changes
+              </button>
+        </form>
 
       </div>
 
     </div>
 
-  } 
+  }
 
 </div>
