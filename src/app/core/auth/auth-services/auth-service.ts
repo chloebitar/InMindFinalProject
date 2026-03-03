@@ -22,6 +22,15 @@ export class AuthService {
     console.log(this.getToken());
     console.log('Is authenticated:', !!this.getToken());
     this.isAuthenticated.set(!!this.getToken());
+
+     const rawUser = localStorage.getItem('user');
+     if (rawUser) {
+       try {
+         this.user.set(JSON.parse(rawUser) as IUser);
+       } catch {
+         localStorage.removeItem('user');
+       }
+     }
   }
 
   tokenkey = 'Authenticationtoken';
@@ -34,40 +43,41 @@ export class AuthService {
     this.cookieService.set(this.tokenkey, token, { expires: 2, sameSite: 'Strict' });
   }
 
-  // authentication(email: string, password: string): Observable<string> {
-  //   return this.http
-  //     .post<ILoginToken>('https://melaine-palaeobiologic-savourily.ngrok-free.dev/api/auth/login', {
-  //       email,
-  //       password,
-  //     })
-  //     .pipe(
-  //       tap((res) => {
-  //         if (!res.token) return;
-  //         this.setToken(res.token);
-  //         this.setUserCookie({ id: res.user.id, username: res.user.username });
-  //         this.isAuthenticated.set(true);
-  //         this.user.set(res.user);
-  //         this.router.navigate(['/']);
-  //       }),
-  //       map((res) => res.token),
-  //     );
-  // }
-
   authentication(email: string, password: string): Observable<string> {
-    console.log('Mock login called', email, password);
-
-    return of({
-      Login: {
-        AccessToken: 'fake-jwt-token',
-      },
-    }).pipe(
-      tap((res) => {
-        this.setToken(res.Login.AccessToken);
-        this.isAuthenticated.set(true);
-      }),
-      map((res) => res.Login.AccessToken),
-    );
+    return this.http
+      .post<ILoginToken>('https://melaine-palaeobiologic-savourily.ngrok-free.dev/api/auth/login', {
+        email,
+        password,
+      })
+      .pipe(
+        tap((res) => {
+          if (!res.token) return;
+          this.setToken(res.token);
+          this.setUserCookie({ id: res.user.id, username: res.user.username });
+          localStorage.setItem("user", JSON.stringify(res.user))
+          this.isAuthenticated.set(true);
+          this.user.set(res.user);
+          this.router.navigate(['/']);
+        }),
+        map((res) => res.token),
+      );
   }
+
+  // authentication(email: string, password: string): Observable<string> {
+  //   console.log('Mock login called', email, password);
+
+  //   return of({
+  //     Login: {
+  //       AccessToken: 'fake-jwt-token',
+  //     },
+  //   }).pipe(
+  //     tap((res) => {
+  //       this.setToken(res.Login.AccessToken);
+  //       this.isAuthenticated.set(true);
+  //     }),
+  //     map((res) => res.Login.AccessToken),
+  //   );
+  // }
 
   logout() {
     // const userId = this.user()?.id;
@@ -78,6 +88,7 @@ export class AuthService {
     this.cookieService.delete(this.tokenkey);
     this.cookieService.delete('userId');
     this.cookieService.delete('username');
+    localStorage.removeItem('user');
     this.isAuthenticated.set(false);
     this.user.set(null);
     this.router.navigate(['/login']);
@@ -107,6 +118,8 @@ export class AuthService {
           this.setToken(res.token);
           this.isAuthenticated.set(true);
           this.setUserCookie({ id: res.user.id, username: res.user.username });
+          this.user.set(res.user);
+          localStorage.setItem('user', JSON.stringify(res.user));
           this.router.navigate(['/']);
         }),
         map((res) => res.token),
