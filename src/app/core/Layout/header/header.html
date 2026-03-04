@@ -13,7 +13,7 @@
     <button class="tab" [routerLink]="['/products']" [queryParams]="{ cat: 'jewelery' }">Jewelery</button>
     <button class="tab" [routerLink]="['/products']" [queryParams]="{ cat: 'clothing' }">Clothing</button>
     @if(authService.user()?.role === 'admin'){
-      <button [routerLink]="['/dashboard']" >Dashboard</button>
+      <button class="tab" [routerLink]="['/dashboard']" >Dashboard</button>
     }
   </nav>
 </div>
