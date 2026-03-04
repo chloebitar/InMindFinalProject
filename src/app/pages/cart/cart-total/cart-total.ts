@@ -2,9 +2,10 @@ import { Component, inject } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { CartService } from '../../../shared/services/cart-service';
 import { CurrencyService } from '../../../shared/services/currency-service';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-cart-total',
-  imports: [DecimalPipe],
+  imports: [RouterLink],
   templateUrl: './cart-total.html',
   styleUrl: './cart-total.scss',
 })

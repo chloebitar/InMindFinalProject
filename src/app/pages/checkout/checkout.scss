@@ -1,0 +1,202 @@
+.checkout-page {
+  min-height: calc(100vh - 120px);
+  background: #f6f7fb;
+  padding: 50px 24px;
+  font-family: Inter, system-ui, Arial;
+}
+
+.checkout-shell {
+  max-width: 580px;
+  margin: 0 auto;
+  display: grid;
+  gap: 18px;
+}
+
+.checkout-header {
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  padding: 22px 24px;
+
+  h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: 0.2px;
+  }
+
+  p {
+    margin: 8px 0 0;
+    font-size: 13px;
+    color: #64748b;
+  }
+}
+
+
+
+.panel {
+  background: #fff;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 18px;
+  padding: 18px;
+  margin-bottom: 14px;
+}
+
+.panel-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 12px;
+}
+
+.radio-row {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* ✅ make the “radio area” feel like a card */
+.radio-pill {
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  background: #fff;
+}
+
+/* ✅ cards become full width, not tiny */
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+/* ✅ remove weird spacing from radio wrapper */
+.card-option {
+  margin: 0;
+  width: 100%;
+}
+
+/* ✅ full-width tile */
+.card-tile {
+  width: 100%;
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  border-radius: 16px;
+  padding: 16px;
+  background: #fff;
+  transition: transform 120ms ease, border-color 120ms ease;
+}
+
+.card-tile:hover {
+  transform: translateY(-1px);
+  border-color: rgba(15, 23, 42, 0.22);
+}
+
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand {
+  font-weight: 900;
+  color: #0f172a;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+}
+
+.badge {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(15, 23, 42, 0.16);
+  color: #0f172a;
+}
+
+.last4 {
+  margin-top: 10px;
+  font-weight: 900;
+  color: #0f172a;
+  letter-spacing: 1px;
+}
+
+.meta {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.coords {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.coord {
+  flex: 1;
+  background: #f8fafc;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  border-radius: 14px;
+  padding: 10px 12px;
+
+  span {
+    display: block;
+    font-size: 11px;
+    color: #64748b;
+  }
+
+  b {
+    font-size: 13px;
+    color: #0f172a;
+  }
+}
+
+.hint {
+  margin-top: 10px;
+  font-size: 12px;
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+
+.hint.error {
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.18);
+  color: #b91c1c;
+}
+
+.hint.ok {
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.18);
+  color: #166534;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.full {
+  width: 100%;
+}
+
+/* Summary */
+.summary .row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.summary .row:last-child {
+  border-bottom: 0;
+}
+
+/* Responsive: show cards in 2 cols on wide screens */
+@media (min-width: 820px) {
+  .cards-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
