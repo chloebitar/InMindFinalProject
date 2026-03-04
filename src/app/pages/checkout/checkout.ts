@@ -13,6 +13,10 @@ import { PaymentMethod } from '../../Interfaces/payment-method';
 import { MapPicker } from '../../shared/components/map-picker/map-picker';
 import { UpperCasePipe } from '@angular/common';
 import { CheckoutSummary } from '../../shared/services/checkout-summary';
+import { environment } from '../../../environments/environment';
+import { AuthService } from '../../core/auth/auth-services/auth-service';
+import emailjs from '@emailjs/browser';
+import { CartService } from '../../shared/services/cart-service';
 
 @Component({
   selector: 'app-checkout',
@@ -25,15 +29,17 @@ import { CheckoutSummary } from '../../shared/services/checkout-summary';
     MatFormFieldModule,
     MatInputModule,
     UpperCasePipe,
-    MapPicker
+    MapPicker,
   ],
   templateUrl: './checkout.html',
   styleUrl: './checkout.scss',
 })
 export class Checkout {
   private fb = inject(FormBuilder);
-  summary=inject(CheckoutSummary)
+  summary = inject(CheckoutSummary);
+  cart=inject(CartService)
 
+  auth=inject(AuthService)
   methods = signal<PaymentMethod[]>(paymentData.paymentMethods);
 
   paymentGroup = this.fb.group({
@@ -81,23 +87,52 @@ export class Checkout {
     return !!this.paymentGroup.value.methodId;
   }
 
-  confirmOrder() {
+  async confirmOrder() {
     if (!this.canGoNextFromPayment() || this.locationGroup.invalid) return;
 
-    const order = {
-      paymentType: this.paymentGroup.value.paymentType,
-      paymentMethod: this.paymentGroup.value.paymentType === 'card' ? this.selectedMethod : null,
-      location: {
-        lat: this.locationGroup.value.lat,
-        lng: this.locationGroup.value.lng,
-        note: this.locationGroup.value.note ?? '',
-      },
-      createdAt: new Date().toISOString(),
-      status: 'pending',
+    const u = this.auth.user();
+    const userEmail = u?.email; 
+    const userName = `${u?.firstName ?? ''} ${u?.lastName ?? ''}`.trim() || 'Customer';
+
+    if (!userEmail) {
+      alert('No email found for this user.');
+      return;
+    }
+
+    const orderId = crypto.randomUUID();
+
+    const items = this.cart.items(); 
+
+    const templateParams = {
+      email: userEmail,
+      order_id: orderId, 
+
+      orders: items.map((i) => ({
+        name: i.title, 
+        units: i.qty, 
+        price: (i.price * i.qty).toFixed(2),
+        image_url:(i.image)
+      })),
+
+      subtotal: this.summary.subtotalText(),
+      delivery: this.summary.deliveryText(),
+      total: this.summary.totalText(), 
+
     };
 
-    console.log('ORDER:', order);
+    try {
+      await emailjs.send(
+        environment.emailjs.serviceId,
+        environment.emailjs.templateId,
+        templateParams,
+        { publicKey: environment.emailjs.publicKey },
+      );
 
-    alert('Order confirmed');
+      alert('Order confirmed! Email sent.');
+      console.log('ORDER EMAIL PARAMS:', templateParams);
+    } catch (err) {
+      console.error('EmailJS error:', err);
+      alert('Order confirmed, but email failed to send.');
+    }
   }
 }
