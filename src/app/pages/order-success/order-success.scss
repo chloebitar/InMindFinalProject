@@ -1,0 +1,83 @@
+.success-page {
+  min-height: calc(100vh - 120px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f6f7fb;
+  padding: 40px;
+  font-family: Inter;
+}
+
+.success-card {
+  background: #ffffff;
+  padding: 50px 60px;
+  text-align: center;
+  max-width: 480px;
+  width: 100%;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.icon {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  color:green;
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  margin: 0;
+  font-size: 26px;
+  color: #0f172a;
+}
+
+.sub {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.order-info {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0,0,0,0.06);
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+
+  strong {
+    color: #0f172a;
+  }
+}
+
+.actions {
+  margin-top: 30px;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.primary {
+  padding: 12px 22px;
+  border-radius: 8px;
+  border: none;
+  background: #0f172a;
+  color: white;
+  cursor: pointer;
+}
+
+.secondary {
+  padding: 12px 22px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: white;
+  cursor: pointer;
+}
