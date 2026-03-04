@@ -1,0 +1,40 @@
+<div class="payment-methods">
+
+  <h2>Payment Methods</h2>
+  <p class="sub">Manage your saved payment methods</p>
+
+  @for (method of userMethods(); track method.id) {
+
+    <div class="card">
+
+      @if (method.default) {
+        <span class="badge">Default</span>
+      }
+
+      <div class="number">
+        •••• •••• •••• {{ method.last4 }}
+      </div>
+
+      <div class="bottom">
+
+        <div>
+          <p class="label">Cardholder</p>
+          <p>{{ method.cardholder }}</p>
+        </div>
+
+        <div>
+          <p class="label">Expires</p>
+          <p>{{ method.expiry }}</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  }
+
+  <button class="add-btn">
+    ADD NEW PAYMENT METHOD
+  </button>
+
+</div>

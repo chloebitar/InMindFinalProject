@@ -4,7 +4,7 @@
 
     <div class="account-header">
       <h1>My Account</h1>
-      <p>Manage your profile and view your orders</p>
+      <p>Manage your profile</p>
     </div>
 
     <div class="account-layout">
@@ -35,7 +35,9 @@
           <mat-tab label="Profile">
             <app-user-details></app-user-details>
           </mat-tab>
-          <mat-tab label="Payment"></mat-tab>
+          <mat-tab label="Payment">
+          <app-payment-methods></app-payment-methods>
+        </mat-tab>
         </mat-tab-group>
 
       </div>

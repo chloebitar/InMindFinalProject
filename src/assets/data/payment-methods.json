@@ -1,0 +1,22 @@
+{
+  "paymentMethods": [
+    {
+      "id": 1,
+      "userId": 2,
+      "brand": "Visa",
+      "last4": "4242",
+      "cardholder": "Chloe Bitar",
+      "expiry": "12/26",
+      "default": true
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "brand": "Mastercard",
+      "last4": "1881",
+      "cardholder": "Chloe Bitar",
+      "expiry": "03/27",
+      "default": false
+    }
+  ]
+}

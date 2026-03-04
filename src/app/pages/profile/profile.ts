@@ -4,10 +4,11 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AuthService } from '../../core/auth/auth-services/auth-service';
 import { UserDetails } from './components/user-details/user-details';
+import { PaymentMethods } from './components/payment-methods/payment-methods';
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatTabsModule, UserDetails],
+  imports: [CommonModule, ReactiveFormsModule, MatTabsModule, UserDetails, PaymentMethods],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
 })
