@@ -51,6 +51,7 @@ export class UserDetails {
     fd.append('lastName', values.lastName!);
     fd.append('email', values.email!);
     fd.append('username', values.username!);
+    //fd.append('role',"admin")
     this.http
       .patch<IUser>('https://melaine-palaeobiologic-savourily.ngrok-free.dev/api/user', fd)
       .subscribe((updated) => {
