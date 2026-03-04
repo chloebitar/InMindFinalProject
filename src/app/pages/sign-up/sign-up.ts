@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../core/auth/auth-services/auth-service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,RouterLink],
   templateUrl: './sign-up.html',
   styleUrl: './sign-up.scss',
 })
@@ -31,7 +31,7 @@ export class SignUp {
     this.authService.signup(email!, firstName!, lastName!, password!, username!).subscribe({
       next: () => {
         console.log('Signup success');
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/']);
       },
       error: (err) => {
         console.error('Signup failed', err);

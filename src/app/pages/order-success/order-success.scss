@@ -66,18 +66,17 @@ h1 {
 }
 
 .primary {
-  padding: 12px 22px;
-  border-radius: 8px;
-  border: none;
-  background: #0f172a;
-  color: white;
-  cursor: pointer;
-}
+    display: inline-flex;
+  align-items: center;
+  gap: 12px;
 
-.secondary {
-  padding: 12px 22px;
-  border-radius: 8px;
-  border: 1px solid rgba(0,0,0,0.1);
-  background: white;
+  background: #111;
+  color: #fff;
+  border: none;
+
+  padding: 18px 18px;
+  font-size: 10px;
+  letter-spacing: 2px;
   cursor: pointer;
+  transition: 0.25s ease;
 }
