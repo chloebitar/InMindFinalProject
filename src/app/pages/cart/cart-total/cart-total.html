@@ -59,17 +59,17 @@
 
       <div class="row">
         <span>Subtotal</span>
-        <span>{{ subtotalText() }}</span>
+        <span>{{ summary.subtotalText() }}</span>
       </div>
 
       <div class="row">
         <span>Delivery</span>
-        <span>{{ deliveryText() }}</span>
+        <span>{{ summary.deliveryText() }}</span>
       </div>
 
       <div class="row total">
         <span>Total</span>
-        <span>{{ totalText() }}</span>
+        <span>{{ summary.totalText() }}</span>
       </div>
 
       <button class="checkout-btn" [routerLink]="['/checkout']" >

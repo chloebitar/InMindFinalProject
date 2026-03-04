@@ -12,6 +12,7 @@ import { PaymentMethod } from '../../Interfaces/payment-method';
 
 import { MapPicker } from '../../shared/components/map-picker/map-picker';
 import { UpperCasePipe } from '@angular/common';
+import { CheckoutSummary } from '../../shared/services/checkout-summary';
 
 @Component({
   selector: 'app-checkout',
@@ -31,6 +32,7 @@ import { UpperCasePipe } from '@angular/common';
 })
 export class Checkout {
   private fb = inject(FormBuilder);
+  summary=inject(CheckoutSummary)
 
   methods = signal<PaymentMethod[]>(paymentData.paymentMethods);
 

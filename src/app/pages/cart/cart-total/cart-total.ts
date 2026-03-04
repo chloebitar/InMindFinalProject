@@ -3,6 +3,7 @@ import { DecimalPipe } from '@angular/common';
 import { CartService } from '../../../shared/services/cart-service';
 import { CurrencyService } from '../../../shared/services/currency-service';
 import { RouterLink } from '@angular/router';
+import { CheckoutSummary } from '../../../shared/services/checkout-summary';
 @Component({
   selector: 'app-cart-total',
   imports: [RouterLink],
@@ -12,18 +13,8 @@ import { RouterLink } from '@angular/router';
 export class CartTotal {
   cart = inject(CartService);
   currency = inject(CurrencyService);
-
-  deliveryFeeUsd = 3;
-
-  subtotalUsd = () => this.cart.totalPrice();
-
-  deliveryFeeDisplay = () => this.currency.convert(this.deliveryFeeUsd);
-
-  totalDisplay = () => this.currency.convert(this.subtotalUsd() + this.deliveryFeeUsd);
-
-  subtotalText = () => this.currency.format(this.subtotalUsd());
-  deliveryText = () => this.currency.format(this.deliveryFeeUsd);
-  totalText = () => this.currency.format(this.subtotalUsd() + this.deliveryFeeUsd);
+  summary=inject(CheckoutSummary)
+  
 
   inc(id: number) {
     this.cart.inc(id);
