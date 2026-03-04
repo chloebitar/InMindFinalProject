@@ -7,7 +7,6 @@ import { CartService } from '../../shared/services/cart-service';
 import { IProduct } from '../../Interfaces/product-interface';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ProductCard } from '../product-list/components/product-card/product-card';
-import { RecommendationsService } from '../../shared/services/recommendations-service';
 import { CurrencyService } from '../../shared/services/currency-service';
 
 @Component({

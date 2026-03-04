@@ -1,0 +1,162 @@
+<div class="checkout-page">
+     <div class="checkout-shell">
+  <div class="checkout-header">
+    <h1>Checkout</h1>
+    <p>Choose payment, pin your location, then confirm your order.</p>
+  </div>
+
+  <mat-stepper [linear]="true" class="stepper">
+
+    <mat-step [stepControl]="paymentGroup">
+      <form [formGroup]="paymentGroup" class="step-body">
+        <ng-template matStepLabel>Payment</ng-template>
+
+        <h2 class="step-title">Payment method</h2>
+        <p class="step-sub">Select COD or choose one of your saved cards.</p>
+
+        <div class="panel">
+          <mat-radio-group
+            formControlName="paymentType"
+            class="radio-row"
+            (change)="onPaymentTypeChange($event.value)"
+          >
+            <mat-radio-button value="card">Card</mat-radio-button>
+            <mat-radio-button value="cod">Cash on Delivery</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        @if (paymentGroup.value.paymentType === 'card') {
+          <div class="panel">
+            <div class="panel-title">Saved cards</div>
+
+            <mat-radio-group formControlName="methodId" class="cards-grid">
+              @for (m of methods(); track m.id) {
+                <mat-radio-button class="card-option" [value]="m.id">
+                  <div class="card-tile" [class.default]="m.default">
+                    <div class="card-top">
+                      <div class="brand">{{ m.brand | uppercase }}</div>
+                      @if (m.default) { <span class="badge">DEFAULT</span> }
+                    </div>
+
+                    <div class="last4">•••• {{ m.last4 }}</div>
+                    <div class="meta">
+                      <span class="holder">{{ m.cardholder }}</span>
+                      <span class="exp">Exp {{ m.expiry }}</span>
+                    </div>
+                  </div>
+                </mat-radio-button>
+              }
+            </mat-radio-group>
+
+            @if (!paymentGroup.value.methodId) {
+              <div class="hint error">Pick a card to continue.</div>
+            }
+          </div>
+        }
+
+        @if (paymentGroup.value.paymentType === 'cod') {
+          <div class="hint ok">
+            You’ll pay in cash when the order is delivered.
+          </div>
+        }
+
+        <div class="actions">
+          <button
+            mat-raised-button
+            color="primary"
+            matStepperNext
+            [disabled]="!canGoNextFromPayment()"
+          >
+            Continue
+          </button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="locationGroup">
+      <form [formGroup]="locationGroup" class="step-body">
+        <ng-template matStepLabel>Location</ng-template>
+
+        <h2 class="step-title">Delivery location</h2>
+        <p class="step-sub">Click on the map to drop a pin.</p>
+
+        <div class="panel">
+          <app-map-picker (pinned)="setPinnedLocation($event.lat, $event.lng)"></app-map-picker>
+
+          <div class="coords">
+            <div class="coord">
+              <span>Lat</span>
+              <b>{{ locationGroup.value.lat ?? '—' }}</b>
+            </div>
+            <div class="coord">
+              <span>Lng</span>
+              <b>{{ locationGroup.value.lng ?? '—' }}</b>
+            </div>
+          </div>
+
+          @if (locationGroup.invalid) {
+            <div class="hint error">Pin a location to continue.</div>
+          }
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Delivery note (optional)</div>
+          <mat-form-field appearance="outline" class="full">
+            <mat-label>Building / floor / landmark</mat-label>
+            <input matInput formControlName="note" placeholder="Example: Building A, 3rd floor, near..." />
+          </mat-form-field>
+        </div>
+
+        <div class="actions">
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-raised-button color="primary" matStepperNext [disabled]="locationGroup.invalid">
+            Continue
+          </button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step>
+      <div class="step-body">
+        <ng-template matStepLabel>Confirm</ng-template>
+
+        <h2 class="step-title">Confirm order</h2>
+        <p class="step-sub">Review your details and confirm.</p>
+
+        <div class="panel summary">
+          <div class="row">
+            <span>Payment</span>
+            <b>
+              @if (paymentGroup.value.paymentType === 'cod') {
+                Cash on Delivery
+              } @else {
+                {{ selectedMethod()?.brand | uppercase }} •••• {{ selectedMethod()?.last4 }}
+              }
+            </b>
+          </div>
+
+          <div class="row">
+            <span>Location</span>
+            <b>{{ locationGroup.value.lat }}, {{ locationGroup.value.lng }}</b>
+          </div>
+
+          @if (locationGroup.value.note) {
+            <div class="row">
+              <span>Note</span>
+              <b>{{ locationGroup.value.note }}</b>
+            </div>
+          }
+        </div>
+
+        <div class="actions">
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-raised-button color="primary" (click)="confirmOrder()">
+            Confirm Order
+          </button>
+        </div>
+      </div>
+    </mat-step>
+
+  </mat-stepper>
+</div>
+</div>
