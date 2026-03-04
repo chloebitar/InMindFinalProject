@@ -29,9 +29,14 @@ export const routes: Routes = [
   },
 
   {
+    path: 'success',
+    loadComponent: () => import('./pages/order-success/order-success').then((m) => m.OrderSuccess),
+  },
+
+  {
     path: 'checkout',
     loadComponent: () => import('./pages/checkout/checkout').then((m) => m.Checkout),
-    canActivate:[checkoutGuardGuard]
+    canActivate: [checkoutGuardGuard],
   },
 
   {

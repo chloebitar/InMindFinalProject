@@ -41,15 +41,14 @@
 .tab {
   background: none;
   border: none;
-  font-size: 16px;
+  font-size: 13px;
   letter-spacing: 1px;
   cursor: pointer;
-  color: #555;
   position: relative;
   padding-bottom: 6px;
   transition: 0.3s ease;
-  font-weight: 1000;
-  font-family: "Cormorant Garamond", serif;
+  // font-family: "Cormorant Garamond", serif;
+  font-family: inter;
 }
 
 .tab:hover {

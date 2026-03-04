@@ -17,6 +17,7 @@ import { environment } from '../../../environments/environment';
 import { AuthService } from '../../core/auth/auth-services/auth-service';
 import emailjs from '@emailjs/browser';
 import { CartService } from '../../shared/services/cart-service';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -38,7 +39,7 @@ export class Checkout {
   private fb = inject(FormBuilder);
   summary = inject(CheckoutSummary);
   cart=inject(CartService)
-
+  router=inject(Router)
   auth=inject(AuthService)
   methods = signal<PaymentMethod[]>(paymentData.paymentMethods);
 
@@ -128,11 +129,10 @@ export class Checkout {
         { publicKey: environment.emailjs.publicKey },
       );
 
-      alert('Order confirmed! Email sent.');
-      console.log('ORDER EMAIL PARAMS:', templateParams);
     } catch (err) {
       console.error('EmailJS error:', err);
-      alert('Order confirmed, but email failed to send.');
     }
+    this.cart.clear();
+    this.router.navigate(['/success']);
   }
 }
