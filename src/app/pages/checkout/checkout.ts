@@ -38,15 +38,21 @@ import { Router, RouterLink } from '@angular/router';
 export class Checkout {
   private fb = inject(FormBuilder);
   summary = inject(CheckoutSummary);
-  cart=inject(CartService)
-  router=inject(Router)
-  auth=inject(AuthService)
+  cart = inject(CartService);
+  router = inject(Router);
+  auth = inject(AuthService);
   methods = signal<PaymentMethod[]>(paymentData.paymentMethods);
 
   paymentGroup = this.fb.group({
     paymentType: this.fb.control<'card' | 'cod' | null>(null, Validators.required),
     methodId: this.fb.control<number | null>(null),
   });
+
+  userCards(): PaymentMethod[] {
+    const uid = this.auth.user()?.id;
+    if (!uid) return [];
+    return this.methods().filter((m) => m.userId === uid);
+  }
 
   locationGroup = this.fb.group({
     lat: this.fb.control<number | null>(null, Validators.required),
@@ -92,7 +98,7 @@ export class Checkout {
     if (!this.canGoNextFromPayment() || this.locationGroup.invalid) return;
 
     const u = this.auth.user();
-    const userEmail = u?.email; 
+    const userEmail = u?.email;
     const userName = `${u?.firstName ?? ''} ${u?.lastName ?? ''}`.trim() || 'Customer';
 
     if (!userEmail) {
@@ -102,23 +108,22 @@ export class Checkout {
 
     const orderId = crypto.randomUUID();
 
-    const items = this.cart.items(); 
+    const items = this.cart.items();
 
     const templateParams = {
       email: userEmail,
-      order_id: orderId, 
+      order_id: orderId,
 
       orders: items.map((i) => ({
-        name: i.title, 
-        units: i.qty, 
+        name: i.title,
+        units: i.qty,
         price: (i.price * i.qty).toFixed(2),
-        image_url:(i.image)
+        image_url: i.image,
       })),
 
       subtotal: this.summary.subtotalText(),
       delivery: this.summary.deliveryText(),
-      total: this.summary.totalText(), 
-
+      total: this.summary.totalText(),
     };
 
     try {
@@ -128,7 +133,6 @@ export class Checkout {
         templateParams,
         { publicKey: environment.emailjs.publicKey },
       );
-
     } catch (err) {
       console.error('EmailJS error:', err);
     }
