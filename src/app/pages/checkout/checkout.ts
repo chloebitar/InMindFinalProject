@@ -63,7 +63,7 @@ export class Checkout {
   selectedMethod(): PaymentMethod | null {
     const id = this.paymentGroup.value.methodId;
     if (!id) return null;
-    return this.methods().find((m) => m.id === id) ?? null;
+    return this.userCards().find((m) => m.id === id) ?? null;
   }
 
   onPaymentTypeChange(type: 'card' | 'cod') {

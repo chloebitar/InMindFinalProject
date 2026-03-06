@@ -32,16 +32,16 @@
 
                 <div class="flex-row">
                  <div class="qty">
-                <button (click)="dec(item.id)">−</button>
+                <button (click)="cart.dec(item.id)">−</button>
                 <span>{{ item.qty }}</span>
-                <button (click)="inc(item.id)">+</button>
+                <button (click)="cart.inc(item.id)">+</button>
               </div>
 
               <img
                   src="assets/icons/trash.svg"
                   alt="remove"
                   class="remove"
-                  (click)="remove(item.id)"
+                  (click)="cart.remove(item.id)"
                 />
                 </div>
             </div>
