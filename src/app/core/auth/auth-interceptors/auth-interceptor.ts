@@ -1,45 +1,39 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { AuthService } from '../auth-services/auth-service';
+import { CookieService } from 'ngx-cookie-service';
 import { catchError, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const authService = inject(AuthService);
+  const cookieService = inject(CookieService);
   const router = inject(Router);
-  const token = authService.getToken();
+
+  const token = cookieService.get('Authenticationtoken');
+
+  const headers: Record<string, string> = {
+    'ngrok-skip-browser-warning': 'true',
+  };
+
   if (token) {
-    const AuthHeader = req.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    
-    return next(AuthHeader).pipe(
-      catchError((err) => {
-        if (err.status === 401) {
-          authService.logout();
-          router.navigate(['/login']);
-        }
-        if (err.status === 404) {
-          router.navigate(['/not-found']);
-        }
-        return throwError(() => err);
-      }),
-    );
+    headers['Authorization'] = `Bearer ${token}`;
   }
 
-  return next(req).pipe(
-    catchError((error) => {
-      if (error.status === 401) {
+  const authReq = req.clone({
+    setHeaders: headers,
+  });
+
+  return next(authReq).pipe(
+    catchError((err) => {
+      if (err.status === 401) {
+        cookieService.delete('Authenticationtoken', '/');
         router.navigate(['/login']);
       }
 
-      if (error.status === 404) {
+      if (err.status === 404) {
         router.navigate(['/not-found']);
       }
 
-      return throwError(() => error);
+      return throwError(() => err);
     }),
   );
 };
