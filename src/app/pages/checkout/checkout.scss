@@ -55,7 +55,6 @@
   flex-wrap: wrap;
 }
 
-/* ✅ make the “radio area” feel like a card */
 .radio-pill {
   padding: 12px 14px;
   border-radius: 14px;
@@ -63,20 +62,17 @@
   background: #fff;
 }
 
-/* ✅ cards become full width, not tiny */
 .cards-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 12px;
 }
 
-/* ✅ remove weird spacing from radio wrapper */
 .card-option {
   margin: 0;
   width: 100%;
 }
 
-/* ✅ full-width tile */
 .card-tile {
   width: 100%;
   border: 1px solid rgba(15, 23, 42, 0.10);

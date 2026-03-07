@@ -1,48 +1,56 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <title>Document</title>
-</head>
-<body>
-  <div class="signup-form-container">
+<div class="signup-form-container">
   <div class="card">
     <h2>Create Account</h2>
     <p>Join us and get started</p>
 
-    <form [formGroup]="form" class="signup-form" (submit)="onSubmit()">
-
+    <form [formGroup]="form" class="signup-form" (ngSubmit)="onSubmit()">
       <div class="row">
         <div class="input">
           <label>First Name</label>
-          <input type="text" formControlName="firstName" placeholder="First name">
+          <input type="text" formControlName="firstName" placeholder="First name" />
+          @if (validation.getErrorMessage(form.get('firstName'))) {
+            <p class="error">{{ validation.getErrorMessage(form.get('firstName')) }}</p>
+          }
         </div>
 
         <div class="input">
           <label>Last Name</label>
-          <input type="text" formControlName="lastName" placeholder="Last name">
+          <input type="text" formControlName="lastName" placeholder="Last name" />
+          @if (validation.getErrorMessage(form.get('lastName'))) {
+            <p class="error">{{ validation.getErrorMessage(form.get('lastName')) }}</p>
+          }
         </div>
       </div>
 
       <div class="input">
         <label>Username</label>
-        <input type="text" formControlName="username" placeholder="Choose a username">
+        <input type="text" formControlName="username" placeholder="Choose a username" />
+        @if (validation.getErrorMessage(form.get('username'))) {
+          <p class="error">{{ validation.getErrorMessage(form.get('username')) }}</p>
+        }
       </div>
 
       <div class="input">
         <label>Email</label>
-        <input type="email" formControlName="email" placeholder="Enter your email">
+        <input type="email" formControlName="email" placeholder="Enter your email" />
+        @if (validation.getErrorMessage(form.get('email'))) {
+          <p class="error">{{ validation.getErrorMessage(form.get('email')) }}</p>
+        }
       </div>
 
       <div class="input">
         <label>Password</label>
-        <input type="password" formControlName="password" placeholder="Create a password">
+        <input type="password" formControlName="password" placeholder="Create a password" />
+        @if (validation.getErrorMessage(form.get('password'))) {
+          <p class="error">{{ validation.getErrorMessage(form.get('password')) }}</p>
+        }
       </div>
 
-      <button class="signup-btn" type="submit" [disabled]="form.invalid">
+      @if (signupError) {
+        <p class="error">{{ signupError }}</p>
+      }
+
+      <button class="signup-btn" type="submit">
         Create Account
       </button>
 
@@ -50,9 +58,6 @@
         Already have an account?
         <a routerLink="/login">Sign in</a>
       </p>
-
     </form>
   </div>
 </div>
-</body>
-</html>

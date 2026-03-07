@@ -1,33 +1,56 @@
 <div class="login-form-container">
-<div class="card">
-    <h2> Welcome Back</h2>
+  <div class="card">
+    <h2>Welcome Back</h2>
     <p>Sign in to your account</p>
-<form  [formGroup]="fbGroup" class="login-form" (submit)="onSubmit()">
-    <!-- <label for="firstname">First Name:</label>
-    <input id="firstname" type="text" formControlName="firstname">
-    <label for="lastname">Last Name:</label>
-    <input id="lastname" type="text" formControlName="lastname"> -->
-    <div class="input">    
-        <label for="email">Email:</label>
-    <input id="email" type="email" formControlName="email" placeholder="Enter your email">
-    </div>
-    <div class="input">
-            <label for="password">Password:</label>
-            <input id="password" type="password" formControlName="password" placeholder="Enter your password">
 
-    </div>
-        <div class="options">
+    <form [formGroup]="fbGroup" class="login-form" (ngSubmit)="onSubmit()">
+      <div class="input">
+        <label for="email">Email:</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="Enter your email"
+        />
+
+        @if (validation.getErrorMessage(fbGroup.get('email'))) {
+          <p class="error">{{ validation.getErrorMessage(fbGroup.get('email')) }}</p>
+        }
+      </div>
+
+      <div class="input">
+        <label for="password">Password:</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="Enter your password"
+        />
+
+        @if (validation.getErrorMessage(fbGroup.get('password'))) {
+          <p class="error">{{ validation.getErrorMessage(fbGroup.get('password')) }}</p>
+        }
+      </div>
+
+        @if (loginError) {
+    <p class="error">{{ loginError }}</p>
+  }
+
+      <div class="options">
         <label class="remember">
           <input type="checkbox" />
           Remember me
         </label>
 
-        <a href="#" class="forgot">Forgot password?</a>
+        <a routerLink="/forgot-password" class="forgot">Forgot password?</a>
       </div>
-    <button class="login-btn" type="submit" [disabled]="!fbGroup.valid">Sign in</button>
-    
-      <p class="signup-text">Don’t have an account?<a href="/signup"> Sign up</a></p>
-</form>
 
-</div>
+      <button class="login-btn" type="submit">Sign in</button>
+
+      <p class="signup-text">
+        Don’t have an account?
+        <a routerLink="/signup">Sign up</a>
+      </p>
+    </form>
+  </div>
 </div>

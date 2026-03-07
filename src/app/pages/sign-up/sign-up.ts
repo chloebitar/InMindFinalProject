@@ -2,11 +2,13 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../core/auth/auth-services/auth-service';
 import { Router, RouterLink } from '@angular/router';
+import { ValidationService } from '../../shared/services/validation-service';
+
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [ReactiveFormsModule,RouterLink],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './sign-up.html',
   styleUrl: './sign-up.scss',
 })
@@ -14,6 +16,8 @@ export class SignUp {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
+  validation = inject(ValidationService);
+  signupError = '';
 
   form = this.fb.group({
     firstName: ['', Validators.required],
@@ -24,7 +28,11 @@ export class SignUp {
   });
 
   onSubmit() {
-    if (this.form.invalid) return;
+    this.signupError = '';
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
 
     const { email, password, firstName, lastName, username } = this.form.value;
 
@@ -35,6 +43,19 @@ export class SignUp {
       },
       error: (err) => {
         console.error('Signup failed', err);
+
+        if (err.status === 409) {
+          this.form.get('email')?.setErrors({ duplicate: true });
+          this.form.get('email')?.markAsTouched();
+          this.form.get('email')?.markAsDirty();
+          return;
+        }
+
+        if (err.error?.message) {
+          this.signupError = err.error.message;
+        } else {
+          this.signupError = 'Signup failed. Please try again.';
+        }
       },
     });
   }

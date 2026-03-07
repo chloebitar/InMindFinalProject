@@ -1,14 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { email } from '@angular/forms/signals';
-import { Validators } from '@angular/forms';
-import { last } from 'rxjs';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../core/auth/auth-services/auth-service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ValidationService } from '../../shared/services/validation-service';
 
 @Component({
   selector: 'app-login-form',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login-form.html',
   styleUrl: './login-form.scss',
 })
@@ -17,27 +15,38 @@ export class LoginForm {
   fb = inject(FormBuilder);
   router = inject(Router);
   route = inject(ActivatedRoute);
+  validation = inject(ValidationService);
+
+  loginError = '';
+
   fbGroup = this.fb.group({
-    // firstname: ['',Validators.required],
-    // lastname: [''],
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
   });
 
   onSubmit() {
-    if (this.fbGroup.invalid) return;
+    this.loginError = '';
+
+    if (this.fbGroup.invalid) {
+      this.fbGroup.markAllAsTouched();
+      return;
+    }
 
     const { email, password } = this.fbGroup.value;
 
     this.authService.authentication(email!, password!).subscribe({
       next: () => {
-        console.log('Login success');
-       const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
-       this.router.navigateByUrl(returnUrl);
+        const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/';
+        this.router.navigateByUrl(returnUrl);
       },
       error: (err: any) => {
         console.error('login failed', err);
-        console.log(email, password);
+
+        if (err.status === 401 || err.status === 400) {
+          this.loginError = 'Incorrect email or password';
+        } else {
+          this.loginError = 'Something went wrong. Please try again.';
+        }
       },
     });
   }

@@ -53,6 +53,22 @@ export class AuthService {
       );
   }
 
+  // authentication(email: string, password: string): Observable<string> {
+  //   console.log('Mock login called', email, password);
+
+  //   return of({
+  //     Login: {
+  //       AccessToken: 'fake-jwt-token',
+  //     },
+  //   }).pipe(
+  //     tap((res) => {
+  //       this.setToken(res.Login.AccessToken);
+  //       this.isAuthenticated.set(true);
+  //     }),
+  //     map((res) => res.Login.AccessToken),
+  //   );
+  // }
+
   signup(
     email: string,
     firstName: string,
@@ -91,7 +107,6 @@ export class AuthService {
 
     this.router.navigate(['/login']);
   }
-
 
   setUser(u: IUser) {
     this.user.set(u);
