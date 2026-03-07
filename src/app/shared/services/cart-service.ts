@@ -4,7 +4,6 @@ import { AuthService } from '../../core/auth/auth-services/auth-service';
 
 
 
-const storage_pref = 'cart_items';
 
 @Injectable({ providedIn: 'root' })
 export class CartService {
@@ -12,7 +11,7 @@ export class CartService {
 
   private storageKey = computed(() => {
     const uid = this.auth.user()?.id;
-    return uid ? `${storage_pref}_${uid}` : `${storage_pref}_guest`;
+    return uid ? `cart_items_${uid}` : `cart_items_guest`;
   });
 
   private _items = signal<CartItem[]>(this.loadFromStorage(this.storageKey()));
@@ -27,10 +26,10 @@ export class CartService {
     const guestKey = 'cart_items_guest';
     const userKey = `cart_items_${userId}`;
 
-    const guestRaw = localStorage.getItem(guestKey);
-    if (!guestRaw) return;
+    const guestJSON = localStorage.getItem(guestKey);
+    if (!guestJSON) return;
 
-    const guest: CartItem[] = JSON.parse(guestRaw);
+    const guest: CartItem[] = JSON.parse(guestJSON);
 
     const user: CartItem[] = JSON.parse(localStorage.getItem(userKey) || '[]');
 

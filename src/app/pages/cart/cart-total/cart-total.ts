@@ -15,19 +15,5 @@ export class CartTotal {
   currency = inject(CurrencyService);
   summary=inject(CheckoutSummary)
   
-
-  inc(id: number) {
-    this.cart.inc(id);
-  }
-  dec(id: number) {
-    this.cart.dec(id);
-  }
-  remove(id: number) {
-    this.cart.remove(id);
-  }
-  clear() {
-    this.cart.clear();
-  }
-
   
 }

@@ -30,7 +30,7 @@
             <div class="panel-title">Saved cards</div>
 
             <mat-radio-group formControlName="methodId" class="cards-grid">
-              @for (m of methods(); track m.id) {
+              @for (m of userCards(); track m.id) {
                 <mat-radio-button class="card-option" [value]="m.id">
                   <div class="card-tile" [class.default]="m.default">
                     <div class="card-top">
