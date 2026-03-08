@@ -42,6 +42,7 @@ export class Checkout {
   router = inject(Router);
   auth = inject(AuthService);
   methods = signal<PaymentMethod[]>(paymentData.paymentMethods);
+  address = signal<string | null>(null);
 
   paymentGroup = this.fb.group({
     paymentType: this.fb.control<'card' | 'cod' | null>(null, Validators.required),
@@ -78,10 +79,6 @@ export class Checkout {
         this.paymentGroup.patchValue({ methodId: defaultCard.id });
       }
     }
-  }
-
-  setPinnedLocation(lat: number, lng: number) {
-    this.locationGroup.patchValue({ lat, lng });
   }
 
   canGoNextFromPayment(): boolean {
@@ -138,5 +135,20 @@ export class Checkout {
     }
     this.cart.clear();
     this.router.navigate(['/success']);
+  }
+
+  setPinnedLocation(lat: number, lng: number) {
+    this.locationGroup.patchValue({ lat, lng });
+    console.log("lat:   " ,lat,"                   lng:   " , lng)
+    
+
+    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`)
+      .then((res) => res.json())
+      .then((data) => {
+        this.address.set(data.display_name);
+      })
+      .catch(() => {
+        this.address.set('Unknown location');
+      });
   }
 }
