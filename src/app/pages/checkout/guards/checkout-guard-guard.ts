@@ -1,17 +1,14 @@
 import { CanActivateFn, Router } from '@angular/router';
-import { AuthService } from '../../../core/auth/auth-services/auth-service';
 import { inject } from '@angular/core';
+import { AuthService } from '../../../core/auth/auth-services/auth-service';
 
-export const checkoutGuardGuard: CanActivateFn = (route, state) => {
-  const auth=inject(AuthService)
-      const router = inject(Router);
+export const checkoutGuardGuard: CanActivateFn = () => {
+  const auth = inject(AuthService);
+  const router = inject(Router);
 
-      const user = auth.user();
+  if (auth.getToken()) {
+    return true;
+  }
 
-      if (user ) {
-        return true;
-      }
-
-      router.navigate(['/login']);
-      return false;
+  return router.navigate(['/login']);
 };

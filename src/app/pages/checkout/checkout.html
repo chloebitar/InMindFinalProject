@@ -51,6 +51,9 @@
             @if (!paymentGroup.value.methodId) {
               <div class="hint error">Pick a card to continue.</div>
             }
+            @else if(paymentGroup.value.paymentType === 'card' && userCards().length===0 ){
+              <div class="hint error">you do not have ant card</div>
+            }
           </div>
         }
 
