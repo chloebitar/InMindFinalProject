@@ -1,8 +1,8 @@
-import {Component, Input,inject } from '@angular/core';
-import { CartService } from '../../../../shared/services/cart-service';
+import { Component, Input, inject } from '@angular/core';
+import { CartService } from '../../services/cart-service';
 import { Router, RouterLink } from '@angular/router';
-import { CurrencyService } from '../../../../shared/services/currency-service';
-import { AuthService } from '../../../../core/auth/auth-services/auth-service';
+import { CurrencyService } from '../../services/currency-service';
+import { AuthService } from '../../../core/auth/auth-services/auth-service';
 
 @Component({
   selector: 'app-product-card',
@@ -13,7 +13,7 @@ import { AuthService } from '../../../../core/auth/auth-services/auth-service';
 export class ProductCard {
   @Input() product!: any;
   authService = inject(AuthService);
-  
+
   cart = inject(CartService);
   router = inject(Router);
   showOverlay = false;
@@ -27,7 +27,6 @@ export class ProductCard {
   //   }
   // }
   addToCart() {
-      this.cart.add(this.product);
-    }
-   
+    this.cart.add(this.product);
+  }
 }

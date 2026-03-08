@@ -6,7 +6,7 @@ import { Products } from '../../shared/services/products-service';
 import { CartService } from '../../shared/services/cart-service';
 import { IProduct } from '../../Interfaces/product-interface';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ProductCard } from '../product-list/components/product-card/product-card';
+import { ProductCard } from '../../shared/components/product-card/product-card';
 import { CurrencyService } from '../../shared/services/currency-service';
 
 @Component({
@@ -21,7 +21,7 @@ export class SingleProduct {
   private productsService = inject(Products);
   private cartService = inject(CartService);
   currencyService = inject(CurrencyService);
-  
+
   product: Signal<IProduct | null> = toSignal(
     this.route.paramMap.pipe(
       map((params) => Number(params.get('id'))),

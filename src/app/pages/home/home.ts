@@ -2,7 +2,7 @@ import { Component, Signal, computed, inject, signal, effect } from '@angular/co
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Products } from '../../shared/services/products-service';
 import { IProduct } from '../../Interfaces/product-interface';
-import { ProductCard } from '../product-list/components/product-card/product-card';
+import { ProductCard } from '../../shared/components/product-card/product-card';
 import { Router, RouterLink } from '@angular/router';
 import { RecommendationsService } from '../../shared/services/recommendations-service';
 

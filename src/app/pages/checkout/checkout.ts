@@ -10,7 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import paymentData from '../../../assets/data/payment-methods.json';
 import { PaymentMethod } from '../../Interfaces/payment-method';
 
-import { MapPicker } from '../../shared/components/map-picker/map-picker';
+import { MapPicker } from './components/map-picker/map-picker';
 import { UpperCasePipe } from '@angular/common';
 import { CheckoutSummary } from '../../shared/services/checkout-summary';
 import { environment } from '../../../environments/environment';

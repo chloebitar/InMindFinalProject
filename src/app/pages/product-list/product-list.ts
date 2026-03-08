@@ -1,9 +1,9 @@
-import { Component, signal  } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Signal, inject, computed } from '@angular/core';
 import { Products } from '../../shared/services/products-service';
 import { IProduct } from '../../Interfaces/product-interface';
-import { ProductCard } from './components/product-card/product-card';
+import { ProductCard } from '../../shared/components/product-card/product-card';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { UpperCasePipe } from '@angular/common';

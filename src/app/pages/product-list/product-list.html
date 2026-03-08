@@ -23,6 +23,7 @@
           [value]="sortBy()"
           (change)="setSort(($any($event.target)).value)"
         >
+          <option value="featured">Featured</option>
           <option value="price-asc">Price: Low → High</option>
           <option value="price-desc">Price: High → Low</option>
           <option value="title-asc">Name: A → Z</option>
