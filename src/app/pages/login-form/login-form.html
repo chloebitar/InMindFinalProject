@@ -14,7 +14,7 @@
         />
 
         @if (validation.getErrorMessage(fbGroup.get('email'))) {
-          <p class="error">{{ validation.getErrorMessage(fbGroup.get('email')) }}</p>
+          <span class="error">{{ validation.getErrorMessage(fbGroup.get('email')) }}</span>
         }
       </div>
 
@@ -28,7 +28,7 @@
         />
 
         @if (validation.getErrorMessage(fbGroup.get('password'))) {
-          <p class="error">{{ validation.getErrorMessage(fbGroup.get('password')) }}</p>
+          <span class="error">{{ validation.getErrorMessage(fbGroup.get('password')) }}</span>
         }
       </div>
 

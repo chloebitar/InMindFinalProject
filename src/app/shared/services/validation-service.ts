@@ -8,8 +8,7 @@ export class ValidationService {
   private messages: Record<string, string> = {
     required: 'This field is required',
     email: 'Please enter a valid email address',
-    minlength: 'This field is too short',
-    maxlength: 'This field is too long',
+    minlength: 'Minimum 6 characters required',
     pattern: 'Invalid format',
     duplicate: 'This email is already registered',
   };
@@ -21,15 +20,6 @@ export class ValidationService {
 
     const firstErrorKey = Object.keys(control.errors)[0];
 
-    if (firstErrorKey === 'minlength') {
-      const requiredLength = control.errors['minlength'].requiredLength;
-      return `Minimum ${requiredLength} characters required`;
-    }
-
-    if (firstErrorKey === 'maxlength') {
-      const requiredLength = control.errors['maxlength'].requiredLength;
-      return `Maximum ${requiredLength} characters allowed`;
-    }
 
     return this.messages[firstErrorKey] || 'Invalid field';
   }

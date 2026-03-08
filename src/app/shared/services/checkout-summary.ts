@@ -9,12 +9,12 @@ export class CheckoutSummary {
   private cart = inject(CartService);
   private currency = inject(CurrencyService);
 
-  deliveryFeeUsd = signal(3);
+  deliveryFeeUsd = 3;
 
   subtotalUsd = computed(() => this.cart.totalPrice()); 
-  totalUsd = computed(() => this.subtotalUsd() + this.deliveryFeeUsd());
+  totalUsd = computed(() => this.subtotalUsd() + this.deliveryFeeUsd);
 
   subtotalText = computed(() => this.currency.format(this.subtotalUsd()));
-  deliveryText = computed(() => this.currency.format(this.deliveryFeeUsd()));
+  deliveryText = computed(() => this.currency.format(this.deliveryFeeUsd));
   totalText = computed(() => this.currency.format(this.totalUsd()));
 }

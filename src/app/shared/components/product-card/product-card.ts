@@ -16,7 +16,6 @@ export class ProductCard {
 
   cart = inject(CartService);
   router = inject(Router);
-  showOverlay = false;
   currencyService = inject(CurrencyService);
 
   // addToCart() {

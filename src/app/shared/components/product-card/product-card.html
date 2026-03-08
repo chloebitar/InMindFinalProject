@@ -1,9 +1,7 @@
 <div class="card"
      [routerLink]="['/products', product.id]">
 
-  <div class="image-container"
-       (mouseenter)="showOverlay = true"
-       (mouseleave)="showOverlay = false">
+  <div class="image-container">
 
     <img [src]="product.image" [alt]="product.title" />
 

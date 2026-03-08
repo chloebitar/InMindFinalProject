@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { Component, AfterViewInit, output } from '@angular/core';
 import * as L from 'leaflet';
 
 @Component({
@@ -8,7 +8,7 @@ import * as L from 'leaflet';
   styleUrl: './map-picker.scss',
 })
 export class MapPicker implements AfterViewInit {
-  @Output() pinned = new EventEmitter<{ lat: number; lng: number }>();
+  pinned = output<{ lat: number; lng: number }>();
 
   private map!: L.Map;
   private marker?: L.Marker;
@@ -17,7 +17,6 @@ export class MapPicker implements AfterViewInit {
     iconUrl: 'assets/icons/pin.svg',
     iconSize: [42, 42],
     iconAnchor: [21, 42],
-    popupAnchor: [0, -42],
   });
 
   ngAfterViewInit() {
@@ -27,8 +26,8 @@ export class MapPicker implements AfterViewInit {
       attribution: '© OpenStreetMap',
     }).addTo(this.map);
 
-    this.map.on('click', (e: L.LeafletMouseEvent) => {
-      const { lat, lng } = e.latlng;
+    this.map.on('click', ({ latlng }: L.LeafletMouseEvent) => {
+      const { lat, lng } = latlng;
 
       if (this.marker) {
         this.marker.setLatLng([lat, lng]);
@@ -40,31 +39,31 @@ export class MapPicker implements AfterViewInit {
     });
   }
 
-  useCurrentLocation() {
+  async useCurrentLocation() {
     if (!navigator.geolocation) {
-      alert('Geolocation is not supported by your browser.');
+      alert('Geolocation not supported');
       return;
     }
 
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
+    try {
+      const position = await new Promise<GeolocationPosition>((resolve, reject) =>
+        navigator.geolocation.getCurrentPosition(resolve, reject),
+      );
 
-        this.map.setView([lat, lng], 15);
+      const { latitude: lat, longitude: lng } = position.coords;
 
-        if (this.marker) {
-          this.marker.setLatLng([lat, lng]);
-        } else {
-          this.marker = L.marker([lat, lng], { icon: this.customIcon }).addTo(this.map);
-        }
+      this.map.setView([lat, lng], 15);
 
-        this.pinned.emit({ lat, lng });
-      },
-      (error) => {
-        alert('Unable to get your location.');
-        console.error(error);
-      },
-    );
+      if (this.marker) {
+        this.marker.setLatLng([lat, lng]);
+      } else {
+        this.marker = L.marker([lat, lng], { icon: this.customIcon }).addTo(this.map);
+      }
+
+      this.pinned.emit({ lat, lng });
+    } catch (error) {
+      alert('Unable to get location');
+      console.error(error);
+    }
   }
 }
