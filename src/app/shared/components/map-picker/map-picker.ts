@@ -14,7 +14,7 @@ export class MapPicker implements AfterViewInit {
   private marker?: L.Marker;
 
   private customIcon = L.icon({
-    iconUrl: 'assets/icons/pin.svg', 
+    iconUrl: 'assets/icons/pin.svg',
     iconSize: [42, 42],
     iconAnchor: [21, 42],
     popupAnchor: [0, -42],
@@ -38,5 +38,33 @@ export class MapPicker implements AfterViewInit {
 
       this.pinned.emit({ lat, lng });
     });
+  }
+
+  useCurrentLocation() {
+    if (!navigator.geolocation) {
+      alert('Geolocation is not supported by your browser.');
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+
+        this.map.setView([lat, lng], 15);
+
+        if (this.marker) {
+          this.marker.setLatLng([lat, lng]);
+        } else {
+          this.marker = L.marker([lat, lng], { icon: this.customIcon }).addTo(this.map);
+        }
+
+        this.pinned.emit({ lat, lng });
+      },
+      (error) => {
+        alert('Unable to get your location.');
+        console.error(error);
+      },
+    );
   }
 }
