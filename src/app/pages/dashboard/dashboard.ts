@@ -50,25 +50,9 @@ export class Dashboard {
     { headerName: 'Id', field: 'id', filter: 'agNumberColumnFilter', maxWidth: 90 },
     { headerName: 'Name', field: 'title', filter: 'agTextColumnFilter', minWidth: 220 },
     { headerName: 'Category', field: 'category', filter: 'agTextColumnFilter', maxWidth: 180 },
-    {
-      headerName: 'Description',
-      field: 'description',
-      filter: 'agTextColumnFilter',
-      editable: true,
-      minWidth: 260,
-    },
-    {
-      headerName: 'Price',
-      field: 'price',
-      filter: 'agNumberColumnFilter',
-      maxWidth: 120,
-      valueFormatter: (p) => `$${Number(p.value ?? 0).toFixed(2)}`,
-    },
-    {
-      headerName: 'Actions',
-      maxWidth: 140,
-      sortable: false,
-      filter: false,
+    { headerName: 'Description', field: 'description', filter: 'agTextColumnFilter', editable: true, minWidth: 260,},
+    {headerName: 'Price', field: 'price', filter: 'agNumberColumnFilter', maxWidth: 120, valueFormatter: (p) => `$${Number(p.value ?? 0).toFixed(2)}`},
+    {headerName: 'Actions', maxWidth: 140, sortable: false, filter: false,
       cellRenderer: () => `<button class="btn-delete">Delete</button>`,
       onCellClicked: (params) => {
         const target = params.event?.target as HTMLElement;
@@ -103,9 +87,6 @@ export class Dashboard {
   ordersBarData: ChartConfiguration['data'] = { labels: [], datasets: [] };
   ordersBarOptions: ChartConfiguration['options'] = { responsive: true };
 
-  aovLineType = 'line' as const;
-  aovLineData: ChartConfiguration['data'] = { labels: [], datasets: [] };
-  aovLineOptions: ChartConfiguration['options'] = { responsive: true };
 
   constructor() {
     effect(() => {
@@ -126,10 +107,6 @@ export class Dashboard {
         datasets: [{ data: m.map((x) => x.orders), label: 'Orders' }],
       };
 
-      this.aovLineData = {
-        labels,
-        datasets: [{ data: m.map((x) => x.avgOrderValue), label: 'Avg Order Value' }],
-      };
     });
   }
 

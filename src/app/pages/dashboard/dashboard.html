@@ -4,30 +4,42 @@
   </div>
 
   <div class="kpis">
+    <div class="wrapper">
     <div class="kpi">
       <p class="kpi-label">Total Revenue</p>
       <h3 class="kpi-value">${{ totalRevenue() }}</h3>
       <span class="kpi-chip up">+2.4%</span>
     </div>
+    <img class="icon" src="assets/icons/dollar.svg" alt="$">
+  </div>
 
+  <div class="wrapper">
     <div class="kpi">
       <p class="kpi-label">Total Orders</p>
       <h3 class="kpi-value">{{ totalOrders() }}</h3>
       <span class="kpi-chip up">+12.5%</span>
     </div>
+    <img class="icon" src="assets/icons/blue_cart.svg" alt="cart">
+  </div>
 
+  <div class="wrapper">
     <div class="kpi">
       <p class="kpi-label">Total Value</p>
       <h3 class="kpi-value">${{ totalValue()}}</h3>
       <span class="kpi-chip up">+8.2%</span>
     </div>
+    <img class="icon" src="assets/icons/total.svg" alt="total">
+</div>
 
+<div class="wrapper">
     <div class="kpi">
       <p class="kpi-label">Avg. Order Value</p>
       <h3 class="kpi-value">${{ avgOrderValue()}}</h3>
       <span class="kpi-chip down">-2.1%</span>
     </div>
+    <img class="icon" src="assets/icons/arrow.svg" alt="arrow">
   </div>
+</div>
 
   <div class="charts">
     <div class="panel">
@@ -72,7 +84,6 @@
     <div class="panel">
       <div class="panel-head">
         <h3>Top Products</h3>
-        <p>AG Grid</p>
       </div>
 
       <ag-grid-angular
