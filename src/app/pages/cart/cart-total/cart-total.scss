@@ -1,5 +1,6 @@
 .cart-container {
   padding: 60px 120px;
+  box-sizing: border-box;
 }
 
 .cart-title {
@@ -13,17 +14,16 @@
 .cart-content {
   display: flex;
   align-items: flex-start;
-  gap: 80px;
+  gap: 60px;
+  box-sizing: border-box;
 }
 
-
 .cart-items {
-  flex: 2;
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  
-  
+  box-sizing: border-box;
 }
 
 .empty {
@@ -32,23 +32,24 @@
 }
 
 .cart-item {
-    
-    background-color: white;
+  background-color: white;
   display: flex;
   align-items: center;
   gap: 24px;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  
-
+  padding: 16px;
+  box-sizing: border-box;
 
   .thumb {
     width: 110px;
-    height:fit-content;
-    border-right:  1px solid rgba(0, 0, 0, 0.1);
+    height: fit-content;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
   }
 
   .info {
     flex: 1;
+    min-width: 0;
   }
 
   .name {
@@ -84,16 +85,15 @@
     button {
       width: 32px;
       height: 32px;
-       border: none;  
+      border: none;
       background: white;
       cursor: pointer;
       font-size: 16px;
-        transition: 0.2s ease;
+      transition: 0.2s ease;
 
       &:hover {
         background: #111;
         color: white;
-        border-color: #111;
       }
     }
 
@@ -104,12 +104,13 @@
     }
   }
 
-.flex-row{
+  .flex-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-right: 20px;
-}
+    gap: 12px;
+  }
 
   .remove {
     border: none;
@@ -118,6 +119,7 @@
     font-size: 16px;
     opacity: 0.6;
     transition: 0.2s ease;
+    flex-shrink: 0;
 
     &:hover {
       opacity: 1;
@@ -125,12 +127,12 @@
   }
 }
 
-
 .cart-summary {
-  flex: 1;
+  flex: 0 0 300px;
+  width: 300px;
   background: #f6f2ed;
   padding: 32px 28px;
-  min-width: 300px;
+  box-sizing: border-box;
 
   h3 {
     font-size: 14px;
@@ -143,6 +145,7 @@
     justify-content: space-between;
     font-size: 13px;
     padding: 10px 0;
+    gap: 12px;
   }
 
   .total {
@@ -163,6 +166,7 @@
     cursor: pointer;
     letter-spacing: 1px;
     transition: 0.3s ease;
+    box-sizing: border-box;
 
     &:hover {
       background: #000;
@@ -175,13 +179,76 @@
   }
 }
 
+@media (max-width: 1100px) {
+  .cart-container {
+    padding: 40px 50px;
+  }
 
-@media (max-width: 1000px) {
+  .cart-content {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 900px) {
+  .cart-container {
+    padding: 30px 30px;
+  }
+
+  .cart-item {
+    gap: 16px;
+
+    .thumb {
+      width: 90px;
+    }
+  }
+}
+
+@media (max-width: 700px) {
   .cart-content {
     flex-direction: column;
+    gap: 30px;
   }
 
   .cart-summary {
     width: 100%;
+    max-width: 100%;
+    flex: unset;
+    box-sizing: border-box;
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-container {
+    padding: 24px 16px;
+  }
+
+  .cart-title {
+    font-size: 24px;
+    margin-bottom: 30px;
+  }
+
+  .cart-item {
+    align-items: flex-start;
+    gap: 12px;
+
+    .thumb {
+      width: 70px;
+      border-right: none;
+    }
+
+    .flex-row {
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-right: 0;
+    }
+
+    .qty button {
+      width: 28px;
+      height: 28px;
+    }
+  }
+
+  .cart-summary {
+    padding: 24px 20px;
   }
 }

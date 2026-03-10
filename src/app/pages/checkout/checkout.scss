@@ -31,8 +31,6 @@
   }
 }
 
-
-
 .panel {
   background: #fff;
   border: 1px solid rgba(15, 23, 42, 0.08);
@@ -178,7 +176,6 @@
   width: 100%;
 }
 
-/* Summary */
 .summary .row {
   display: flex;
   justify-content: space-between;
@@ -190,9 +187,73 @@
   border-bottom: 0;
 }
 
-/* Responsive: show cards in 2 cols on wide screens */
+.stepper {
+  overflow: hidden;
+}
+
 @media (min-width: 820px) {
   .cards-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr ;
   }
+}
+
+@media (max-width: 600px)  {
+  .checkout-page{
+    padding: 50px 34px;
+  }
+  ::ng-deep .stepper .mat-horizontal-stepper-header-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  ::ng-deep .stepper .mat-horizontal-stepper-header-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  ::ng-deep .stepper .mat-step-header {
+    flex: 0 0 auto;
+  }
+  
+  .cards-grid {
+    gap: 10px;
+  }
+
+  .card-tile {
+    padding: 10px;
+    border-radius: 12px;
+  }
+
+  .card-top {
+    gap: 8px;
+  }
+
+  .brand {
+    font-size: 12px;
+  }
+
+  .badge {
+    font-size: 10px;
+    padding: 2px 6px;
+  }
+
+  .last4 {
+    margin-top: 8px;
+    font-size: 12px;
+    letter-spacing: 0.8px;
+  }
+
+  .meta {
+    margin-top: 8px;
+    font-size: 11px;
+    gap: 6px;
+  }
+
+  .coords{
+    flex-direction: column;
+  }
+ 
 }

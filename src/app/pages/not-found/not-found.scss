@@ -3,8 +3,6 @@
   height: calc(100vh - 150px);
   align-items: center;
   justify-content: center;
-  background: #f6f7fb;
-  padding: 40px;
   font-family: Inter;
 }
 
@@ -24,7 +22,7 @@
   font-weight: 900;
   letter-spacing: 4px;
   color: #0f172a;
-  margin-bottom: 12px;
+  margin-bottom: 40px;
 }
 
 h1 {
@@ -78,11 +76,8 @@ h1 {
 }
 
 @media (max-width: 600px) {
-  .card {
-    padding: 40px 24px;
-  }
-
-  .actions {
-    flex-direction: column;
+  
+  .btn {
+    width: max-content;
   }
 }

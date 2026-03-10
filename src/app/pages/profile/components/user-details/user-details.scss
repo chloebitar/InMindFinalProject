@@ -3,7 +3,7 @@
   background: #ffffff;
   padding: 40px;
   border: 1px solid rgba(15, 23, 42, 0.06);
-
+  box-sizing: border-box;
 
   h2 {
     margin: 0;
@@ -38,13 +38,13 @@
 
   input {
     padding: 12px 14px;
-    border-radius: 12px;
+    border-radius: 8px;
     border: 1px solid #e5e7eb;
     font-size: 14px;
     background: #fafafa;
     transition: 0.2s ease;
-
-    
+    width: 100%;
+    box-sizing: border-box;
   }
 }
 
@@ -54,9 +54,7 @@ form {
   gap: 20px;
 }
 
-
-.save-btn{
-  gap: 12px;
+.save-btn {
   width: fit-content;
   background: #111;
   color: #fff;
@@ -73,10 +71,34 @@ form {
   grid-column: span 2;
 }
 
-@media (max-width: 1100px) {
 
+@media (max-width: 1100px) {
+  .details-card {
+    padding: 32px;
+  }
 
   .form-grid {
     width: 100%;
   }
+}
+
+@media (max-width: 700px) {
+
+  .details-card {
+    padding: 26px 22px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full {
+    grid-column: span 1;
+  }
+
+  .save-btn {
+    width: 100%;
+    align-self: stretch;
+  }
+
 }

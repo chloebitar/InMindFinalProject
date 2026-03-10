@@ -1,55 +1,16 @@
 .account-page {
   padding: 60px 60px;
   font-family: Inter;
+  box-sizing: border-box;
 }
-
-.account-content {
-  flex: 1;
-  min-width: 0;
-   margin-top: -45px;
-}
-
-
-.account-header {
-  margin-bottom: 40px;
-
-  h1 {
-    margin: 0;
-    font-size: 26px;
-    font-weight: 600;
-    color: #0f172a;
-  }
-
-  p {
-    margin-top: 6px;
-    font-size: 14px;
-    color: #64748b;
-  }
-}
-
-
-.account-layout {
-  display: flex;
-  gap: 40px;
-  align-items: flex-start;
-}
-
-
-.profile-card {
-  width: 300px;
-  background: #ffffff;
-  padding: 32px 28px;
-  border-radius: 8px;
-  border: 1px solid rgba(15, 23, 42, 0.06);
-  text-align: center;
 
 
   .avatar {
     width: 84px;
     height: 84px;
     border-radius: 50%;
-background: #020024;
-color: #ffffff;
+    background: #020024;
+    color: #ffffff;
     font-weight: 600;
     font-size: 22px;
     display: flex;
@@ -58,31 +19,27 @@ color: #ffffff;
     margin: 0 auto 20px;
   }
 
-  .name {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 600;
-    color: #0f172a;
-  }
-
-  .username {
-    margin: 6px 0 18px;
-    font-size: 13px;
-    color: #64748b;
-  }
-
-  .contact {
-    font-size: 13px;
-    color: #64748b;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
+.account-layout {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
 }
 
+.account-content {
+  flex: 1;
+  min-width: 0;
+  margin-top: -45px;
+}
 
-
-
+.profile-card {
+  width: 300px;
+  background: #ffffff;
+  padding: 32px 28px;
+  border-radius: 8px;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  text-align: center;
+  box-sizing: border-box;
+}
 
 @media (max-width: 1100px) {
   .account-page {
@@ -97,7 +54,61 @@ color: #ffffff;
     width: 100%;
   }
 
+  .account-content {
+    width: 100%;
+    margin-top: 0;
+  }
+}
 
+@media (max-width: 700px) {
+  .account-page {
+    padding: 24px 16px;
+  }
 
+  .account-layout {
+    gap: 24px;
+  }
 
+  .profile-card {
+    padding: 24px 20px;
+  }
+
+  .account-content {
+    width: 100%;
+  }
+
+  ::ng-deep .mat-mdc-tab-group {
+    width: 100%;
+  }
+
+  ::ng-deep .mat-mdc-tab-header {
+    width: 100%;
+  }
+
+  ::ng-deep .mat-mdc-tab-label-container {
+    width: 100%;
+  }
+
+  ::ng-deep .mat-mdc-tab-list {
+    width: 100%;
+  }
+
+  ::ng-deep .mat-mdc-tab-labels {
+    display: flex;
+    width: 100%;
+  }
+
+  ::ng-deep .mat-mdc-tab {
+    flex: 1 1 50%;
+    min-width: 0;
+  }
+
+  ::ng-deep .mdc-tab__text-label {
+    width: 100%;
+    text-align: center;
+  }
+
+  ::ng-deep .mat-mdc-tab-body-wrapper {
+    width: 100%;
+  }
 }
