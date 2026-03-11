@@ -1,9 +1,9 @@
 import { Component, computed, effect, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../../core/auth/auth-services/auth-service';
 import { IUser } from '../../../../core/auth/auth-interfaces/user';
+import { ValidationService } from '../../../../shared/services/validation-service';
 @Component({
   selector: 'app-user-details',
   imports: [ReactiveFormsModule],
@@ -14,7 +14,7 @@ export class UserDetails {
   private auth = inject(AuthService);
   private fb = inject(FormBuilder);
   private http = inject(HttpClient);
-
+  validation=inject(ValidationService);
   user = this.auth.user;
 
   form = this.fb.group({
@@ -42,8 +42,13 @@ export class UserDetails {
   }
 
   save() {
-    if (this.form.invalid) return;
+     if (this.form.invalid) {
+       this.form.markAllAsTouched();
+       return;
+     }
 
+
+    const emailControl = this.form.get('email');
     const values = this.form.value;
 
     const fd = new FormData();
@@ -54,8 +59,16 @@ export class UserDetails {
     //fd.append('role',"admin")
     this.http
       .patch<IUser>('https://melaine-palaeobiologic-savourily.ngrok-free.dev/api/user', fd)
-      .subscribe((updated) => {
-        this.auth.setUser(updated);
-      });
-  }
-}
+      .subscribe({
+        next: (updated) => {
+          emailControl?.setErrors(null);
+          this.auth.setUser(updated);
+        },
+        error: (err) => {
+          if (err.status === 400) {
+            emailControl?.setErrors({ duplicate: true });
+            emailControl?.markAsTouched();
+          }
+        },
+      },
+    )}}

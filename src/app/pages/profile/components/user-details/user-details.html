@@ -3,7 +3,7 @@
         <h2>Personal Information</h2>
         <p class="sub">Your account details</p>
 
-        <form [formGroup]="form" (click)="save()">
+        <form [formGroup]="form" (ngSubmit)="save()">
 
           <div class="form-grid">
 
@@ -20,6 +20,10 @@
             <div class="form-group full">
               <label>Email</label>
               <input type="email" formControlName="email">
+
+              @if (validation.getErrorMessage(form.get('email'))) {
+                <span class="error"> {{ validation.getErrorMessage(form.get('email')) }}</span>
+              }
             </div>
 
             <div class="form-group full">
