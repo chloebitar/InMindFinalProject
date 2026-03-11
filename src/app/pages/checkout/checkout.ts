@@ -8,7 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 import paymentData from '../../../assets/data/payment-methods.json';
-import { PaymentMethod } from '../../Interfaces/payment-method';
+import { IPaymentMethod } from '../../Interfaces/payment-method';
 
 import { MapPicker } from './components/map-picker/map-picker';
 import { UpperCasePipe } from '@angular/common';
@@ -41,7 +41,7 @@ export class Checkout {
   cart = inject(CartService);
   router = inject(Router);
   auth = inject(AuthService);
-  methods = signal<PaymentMethod[]>(paymentData.paymentMethods);
+  methods = signal<IPaymentMethod[]>(paymentData.paymentMethods);
   address = signal<string | null>(null);
 
   paymentGroup = this.fb.group({
@@ -49,7 +49,7 @@ export class Checkout {
     methodId: this.fb.control<number | null>(null),
   });
 
-  userCards(): PaymentMethod[] {
+  userCards(): IPaymentMethod[] {
     const uid = this.auth.user()?.id;
     if (!uid) return [];
     return this.methods().filter((m) => m.userId === uid);
@@ -61,7 +61,7 @@ export class Checkout {
     note: this.fb.control(''),
   });
 
-  selectedMethod(): PaymentMethod | null {
+  selectedMethod(): IPaymentMethod | null {
     const id = this.paymentGroup.value.methodId;
     if (!id) return null;
     return this.userCards().find((m) => m.id === id) ?? null;
@@ -96,7 +96,6 @@ export class Checkout {
 
     const u = this.auth.user();
     const userEmail = u?.email;
-    const userName = `${u?.firstName ?? ''} ${u?.lastName ?? ''}`.trim() || 'Customer';
 
     if (!userEmail) {
       alert('No email found for this user.');

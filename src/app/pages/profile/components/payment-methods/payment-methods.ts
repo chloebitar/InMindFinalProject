@@ -1,6 +1,6 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { AuthService } from '../../../../core/auth/auth-services/auth-service';
-import { PaymentMethod } from '../../../../Interfaces/payment-method';
+import { IPaymentMethod } from '../../../../Interfaces/payment-method';
 import paymentData from '../../../../../assets/data/payment-methods.json';
 
 @Component({
@@ -11,7 +11,7 @@ import paymentData from '../../../../../assets/data/payment-methods.json';
 })
 export class PaymentMethods {
   private auth = inject(AuthService);
-  private methods = signal<PaymentMethod[]>(paymentData.paymentMethods);
+  private methods = signal<IPaymentMethod[]>(paymentData.paymentMethods);
 
   userMethods = computed(() => {
     const u = this.auth.user();

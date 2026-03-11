@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { IProduct } from '../../Interfaces/product-interface';
 import { AuthService } from '../../core/auth/auth-services/auth-service';
-import { CartItem } from '../../Interfaces/cart-items';
+import { ICartItem } from '../../Interfaces/cart-items';
 
 @Injectable({ providedIn: 'root' })
 export class RecommendationsService {
@@ -14,10 +14,10 @@ export class RecommendationsService {
     return uid ? `${this.storagePref}_${uid}` : `${this.storagePref}_guest`;
   }
 
-  private getCartItems(): CartItem[] {
+  private getCartItems(): ICartItem[] {
     try {
       const raw = localStorage.getItem(this.getCartKey());
-      return raw ? (JSON.parse(raw) as CartItem[]) : [];
+      return raw ? (JSON.parse(raw) as ICartItem[]) : [];
     } catch {
       return [];
     }

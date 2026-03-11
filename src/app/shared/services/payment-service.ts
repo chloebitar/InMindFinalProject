@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { PaymentMethod } from '../../Interfaces/payment-method';
+import { IPaymentMethod } from '../../Interfaces/payment-method';
 
 @Injectable({
   providedIn: 'root',
@@ -8,5 +8,5 @@ import { PaymentMethod } from '../../Interfaces/payment-method';
 export class Payment {
   private http = inject(HttpClient);
 
-  methods$ = this.http.get<PaymentMethod[]>('assets/data/payment-methods.json');
+  methods$ = this.http.get<IPaymentMethod[]>('assets/data/payment-methods.json');
 }

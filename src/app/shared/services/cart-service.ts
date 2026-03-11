@@ -1,5 +1,5 @@
 import { Injectable, signal, computed, effect,inject } from '@angular/core';
-import { CartItem } from '../../Interfaces/cart-items';
+import { ICartItem } from '../../Interfaces/cart-items';
 import { AuthService } from '../../core/auth/auth-services/auth-service';
 
 
@@ -14,7 +14,7 @@ export class CartService {
     return uid ? `cart_items_${uid}` : `cart_items_guest`;
   });
 
-  private _items = signal<CartItem[]>(this.loadFromStorage(this.storageKey()));
+  private _items = signal<ICartItem[]>(this.loadFromStorage(this.storageKey()));
 
   items = this._items.asReadonly();
 
@@ -29,9 +29,9 @@ export class CartService {
     const guestJSON = localStorage.getItem(guestKey);
     if (!guestJSON) return;
 
-    const guest: CartItem[] = JSON.parse(guestJSON);
+    const guest: ICartItem[] = JSON.parse(guestJSON);
 
-    const user: CartItem[] = JSON.parse(localStorage.getItem(userKey) || '[]');
+    const user: ICartItem[] = JSON.parse(localStorage.getItem(userKey) || '[]');
 
     for (const g of guest) {
       const existing = user.find((u) => u.id === g.id);
@@ -72,7 +72,7 @@ export class CartService {
       return;
     }
 
-    const newItem: CartItem = {
+    const newItem: ICartItem = {
       id: product.id,
       title: product.title,
       price: product.price,
@@ -104,10 +104,10 @@ export class CartService {
     this._items.set([]);
   }
 
-  private loadFromStorage(key: string): CartItem[] {
+  private loadFromStorage(key: string): ICartItem[] {
     try {
       const raw = localStorage.getItem(key);
-      return raw ? (JSON.parse(raw) as CartItem[]) : [];
+      return raw ? (JSON.parse(raw) as ICartItem[]) : [];
     } catch {
       return [];
     }
