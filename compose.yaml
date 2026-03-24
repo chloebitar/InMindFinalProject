@@ -1,0 +1,12 @@
+services:
+  angular-app:
+    build: .
+    container_name: inmind-compose
+    ports:
+      - "8081:80"
+    networks:
+      - inmind-network-compose
+
+networks:
+  inmind-network-compose:
+    driver: bridge
