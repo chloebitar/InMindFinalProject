@@ -60,10 +60,23 @@ export class AuthService {
   //     Login: {
   //       AccessToken: 'fake-jwt-token',
   //     },
+  //     user:{
+  //       id:2,
+  //       email: "chloebitar32@gmail.com",
+  //       firstName: "chloe",
+  //       lastName: "bitar",
+  //       username: "chloebitar",
+  //       dateOfBirth: "1-2-2026", 
+  //       imageUrl: "test.jpg",
+  //       role:"user",
+  //       createdAt: "1-2-2026",
+  //       updatedAt: "1-2-2026",
+  //     }
   //   }).pipe(
   //     tap((res) => {
   //       this.setToken(res.Login.AccessToken);
   //       this.isAuthenticated.set(true);
+  //       this.user.set(res.user);
   //     }),
   //     map((res) => res.Login.AccessToken),
   //   );
@@ -120,7 +133,6 @@ export class AuthService {
     const token = this.getToken();
 
     if (!token) {
-      console.log('No token found');
       this.isAuthenticated.set(false);
       this.user.set(null);
       return;

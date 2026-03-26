@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { provideRouter } from '@angular/router';
 import { EmptyCart } from './empty-cart';
 
 describe('EmptyCart', () => {
@@ -8,13 +8,13 @@ describe('EmptyCart', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EmptyCart]
-    })
-    .compileComponents();
+      imports: [EmptyCart],
+      providers: [provideRouter([])],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(EmptyCart);
     component = fixture.componentInstance;
-    await fixture.whenStable();
+    fixture.detectChanges();
   });
 
   it('should create', () => {
