@@ -33,15 +33,17 @@ describe('CartService', () => {
   });
 
   it('should calculate total price',()=>{
-      service.add(product1,2),
-      service.add(product2,3),
-      expect(service.totalPrice()).toBe(80);
+      service.add(product1,2)
+      service.add(product2,3)
+      const total = service.totalPrice();
+      expect(total).toBe(80);
   })
 
   it('should calculate correct total',()=>{
     service.add(product1,2),
-    service.remove(product1.id)
-    expect(service.totalPrice()).toBe(0)
+    service.dec(1)
+    const total =service.totalPrice();
+    expect(total).toBe(10);
   })
 
   
