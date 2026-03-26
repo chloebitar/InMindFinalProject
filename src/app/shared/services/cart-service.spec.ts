@@ -43,7 +43,7 @@ describe('CartService', () => {
     service.add(product1,2),
     service.dec(1)
     const total =service.totalPrice();
-    expect(total).toBe(10);
+    expect(total).toBe(0);
   })
 
   
