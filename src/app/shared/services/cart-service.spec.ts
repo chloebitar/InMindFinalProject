@@ -46,5 +46,4 @@ describe('CartService', () => {
     expect(total).toBe(10);
   })
 
-  //test
 });
